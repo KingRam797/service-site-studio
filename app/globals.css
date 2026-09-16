@@ -115,7 +115,7 @@ button, input, textarea, select { font: inherit; }
 .system-card > div { padding: 2rem; display: flex; flex-direction: column; background: white; }
 .system-card > div:nth-child(2) { background: var(--accent-alt); color: white; }
 .system-card span { font: 750 .68rem/1 ui-monospace, monospace; letter-spacing: .08em; opacity: .6; }
-.system-card strong { margin: auto 0 1.2rem; font: 900 clamp(2rem, 4vw, 4rem)/.9 var(--display); text-transform: uppercase; }
+.system-card strong { margin: auto 0 1.2rem; font: 900 clamp(1.65rem, 2.4vw, 2.8rem)/.92 var(--display); letter-spacing: -.045em; text-transform: uppercase; }
 .system-card p { margin: 0; line-height: 1.75; opacity: .68; }
 .system-card code { grid-column: 1/-1; padding: 1rem; background: var(--ink); color: white; text-align: center; font-size: .78rem; }
 .about h2 { font-size: clamp(3rem, 5.5vw, 6rem); line-height: .9; }
