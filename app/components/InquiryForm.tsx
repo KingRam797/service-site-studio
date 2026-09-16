@@ -36,10 +36,12 @@ export default function InquiryForm({ config }: { config: SiteConfig }) {
     } catch {
       setStatus("fallback");
       const summary = Object.entries(data).map(([key, value]) => `${labels[key as keyof typeof labels] ?? key}: ${value}`).join("\n");
-      if (config.conversion.fallback === "sms") {
+      if (config.conversion.fallback === "sms" && config.business.phone) {
         window.location.href = `sms:${config.business.phone.replace(/[^+\d]/g, "")}?&body=${encodeURIComponent(summary)}`;
-      } else {
+      } else if (config.business.email) {
         window.location.href = `mailto:${config.business.email}?subject=${encodeURIComponent(`New ${config.conversion.mode} request`)}&body=${encodeURIComponent(summary)}`;
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(summary);
       }
     }
   }
@@ -47,14 +49,14 @@ export default function InquiryForm({ config }: { config: SiteConfig }) {
   return (
     <form className="inquiry-form" onSubmit={submit}>
       {config.conversion.fields.map((field) => {
-        if (field === "message") return <label className="field field-wide" key={field}><span>{labels[field]}</span><textarea name={field} rows={5} required placeholder="What should the customer understand, choose, or schedule?" /></label>;
+        if (field === "message") return <label className="field field-wide" key={field}><span>{labels[field]}</span><textarea name={field} rows={5} required placeholder="What do you sell, how do customers act now, and what should change after launch?" /></label>;
         if (field === "service") return <label className="field" key={field}><span>{labels[field]}</span><select name={field} required defaultValue=""><option value="" disabled>Select a service</option>{services.map((service) => <option key={service}>{service}</option>)}</select></label>;
         const type = field === "email" ? "email" : field === "date" ? "date" : field === "time" ? "time" : field === "phone" ? "tel" : "text";
         return <label className="field" key={field}><span>{labels[field]}</span><input name={field} type={type} required={field === "name" || field === "email" || field === "phone"} /></label>;
       })}
       <div className="form-submit">
         <button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : config.conversion.submitLabel}<span aria-hidden="true">↗</span></button>
-        <p aria-live="polite">{status === "sent" ? config.conversion.successMessage : status === "fallback" ? "Opening your preferred contact method to finish sending." : "Your details are used only to respond to this request."}</p>
+        <p aria-live="polite">{status === "sent" ? config.conversion.successMessage : status === "fallback" ? (config.business.email || config.business.phone ? "Opening your preferred contact method to finish sending." : "Direct delivery is not connected yet. Your request has been copied so you can keep it.") : "Project context only. Never enter passwords or provider keys here."}</p>
       </div>
     </form>
   );
