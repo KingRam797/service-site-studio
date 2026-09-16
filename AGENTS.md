@@ -1,5 +1,6 @@
 # AGENTS.md
 
+<!-- BEGIN:shared-agent-workflow -->
 ## Goal
 Complete the requested task correctly with minimal context, tool calls, and rework.
 
@@ -51,3 +52,4 @@ When the interface indicates usage is nearing its limit, or interruption risk is
 
 ## Communication
 For ordinary success, report only what changed and whether verification passed. Expand only for failures, uncertainty, or meaningful tradeoffs.
+<!-- END:shared-agent-workflow -->
