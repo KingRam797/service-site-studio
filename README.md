@@ -1,6 +1,15 @@
-# Service Site Studio
+# push2Start
 
-A configuration-driven Next.js starter for distinctive service-business websites. It extracts the reusable operating foundation proven across Creative Impressions, Like That Cutz, Smile Now/Cry Later, and Luscious Kreations without forcing those businesses into one visible template.
+The public Push2Start site and its client delivery system. The application combines the three public offers, selected work, project inquiry, authenticated client workspaces, secure provider-connection requests, and Stripe milestone checkout.
+
+## Production services
+
+- **Clerk** protects `/client` and identifies each client.
+- **Neon Postgres** stores projects, materials, provider status, updates, and the 50/25/25 payment schedule. Apply `db/schema.sql` once to the production database.
+- **Stripe Checkout** collects only milestones marked `due`; the signed webhook at `/api/webhooks/stripe` marks the milestone paid and releases the next one.
+- **Resend or a webhook** delivers public build inquiries.
+
+The app builds safely before these services are connected. Without production keys, client access shows a setup state and payments remain unavailable.
 
 ## The 80/20 architecture
 

@@ -1,49 +1,29 @@
-# Service Site Studio — Handoff
+# push2Start — Production handoff
 
-## Project
+## Repository
 
-- Slot: Immediate Revenue / Rapid Business-Site System
-- Local project: `service-site-studio`
-- Repository: not assigned yet
-- Branch: not assigned yet
-- Deployment: not assigned yet
+- Repository: `KingRam797/service-site-studio`
+- Working branch: `codex/push2start-finish`
+- Production URL: `https://service-site-studio-five.vercel.app`
 
-## Intended outcome
+## Implemented
 
-Create a reusable service-business starter and operating package from the shared architecture of Creative Impressions, Like That Cutz, Smile Now/Cry Later, and Luscious Kreations.
+- Push2Start public identity, three-offer presentation, 50/25/25 production model, verified contact email, and Instagram.
+- Interactive WebGL push-token insignia backed by a validated glTF 2.0 asset and static poster fallback.
+- Visual selected-work cards for Creative Impressions, Like That Cutz, Windows To The Sol, and SNCL.
+- Clerk-protected client workspace with project progress, materials, build updates, provider-connection status, and empty/setup states.
+- Neon schema for projects, payment milestones, materials, provider connections, and project updates.
+- Stripe Checkout for authenticated due milestones and a signed webhook that marks payment complete and releases the next milestone.
+- Secure provider-connection requests that store status only; passwords and secret keys are never collected by the site.
 
-## Completed
+## Production activation
 
-- Four reference repositories audited.
-- Shared presentation, conversion, metadata, and delivery architecture extracted.
-- Client identity moved into a typed central configuration.
-- Quote/appointment/order conversion modes modeled.
-- Direct webhook/Resend delivery with email/SMS fallback implemented.
-- Responsive demo site and three initial sellable packages created.
-- Intake, module matrix, delivery checklist, and validation tests added.
-- Configuration validation passes.
-- Three structural tests pass.
-- ESLint passes with no warnings.
-- Next.js production build passes.
-- Production HTML and inquiry API behavior verified locally.
+1. Add Clerk, Neon, and Stripe through the Vercel Marketplace.
+2. Apply `db/schema.sql` to the Neon database.
+3. Add the Stripe webhook endpoint `/api/webhooks/stripe` and save its signing secret.
+4. Create each accepted client project and its three payment milestones in Neon, then associate the Clerk user ID or client email.
+5. Add Resend or `INQUIRY_WEBHOOK_URL` for direct inquiry delivery.
 
-## Remaining before first paid use
+## Known blocker
 
-1. Visually inspect desktop and mobile render. Automated visual inspection was blocked because the cloud browser could not reach workspace localhost; no visual pass is claimed.
-2. Assign a GitHub repository and push the verified package.
-3. Replace demo content with Victor's final public service brand and contact information.
-4. Create three client-approved case studies with screenshots and outcomes.
-5. Publish Fiverr/Upwork listings.
-
-## Do not repeat
-
-- Do not rebuild the four client projects inside this starter.
-- Do not make the visible output a generic theme.
-- Do not promote specialized logic to shared code without a stable contract and tests.
-- Do not hard-code client secrets, private addresses, or third-party ownership.
-
-## Next three actions
-
-1. Inspect the demo at desktop and phone widths.
-2. Select the repository and public-facing service brand.
-3. Build the first client-approved case study into the proof section.
+- `https://like-that-cutz.vercel.app` currently returns 404. Its real brand artwork is shown, but the proof card intentionally remains non-clickable until the public deployment is restored.

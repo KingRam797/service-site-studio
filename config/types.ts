@@ -27,6 +27,7 @@ export type ProofItem = {
   image?: string;
   result?: string;
   focalPoint?: string;
+  href?: string;
 };
 
 export type Service = {

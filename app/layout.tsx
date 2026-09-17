@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { ClerkProvider } from "@clerk/nextjs";
 import { siteConfig } from "@/config/site.config";
 import "./globals.css";
 
@@ -14,12 +15,21 @@ export const metadata: Metadata = {
     description: siteConfig.seo.description,
     type: "website",
   },
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  return (
+  const content = (
     <html lang="en">
       <body>{children}</body>
     </html>
   );
+
+  if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+    return <ClerkProvider>{content}</ClerkProvider>;
+  }
+
+  return content;
 }
