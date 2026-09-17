@@ -42,6 +42,15 @@ Use the matching skill only when relevant:
 ## Delegation
 Delegate only when explicitly authorized and when tasks are substantial, independent, and precisely scoped. The primary agent owns integration and verification.
 
+### Subagent Delegation Policy
+When subagents are requested:
+- The primary/orchestrator agent reads and follows `AGENTS.md` and inspects repository architecture as needed.
+- Subagents do **not** read `AGENTS.md` unless the orchestrator explicitly determines that broader context is required.
+- The orchestrator gives each subagent the minimum working packet: exact files to read/edit, directly relevant interfaces or dependencies, task objective, constraints, acceptance criteria, and required validation/tests.
+- Subagents must not scan the full repository by default; expand scope only when evidence shows the assigned task requires it.
+- The orchestrator owns cross-system reasoning, integration, conflict resolution, final validation, and reporting.
+- Prefer one primary execution path. Use multiple subagents only when tasks are meaningfully independent and the parallelism or specialization justifies the additional usage.
+
 ## Continuity Protection
 When the interface indicates usage is nearing its limit, or interruption risk is high:
 1. stop starting large new units;
