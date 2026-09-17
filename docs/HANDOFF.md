@@ -5,6 +5,7 @@
 - Repository: `KingRam797/service-site-studio`
 - Working branch: `codex/push2start-finish`
 - Production URL: `https://service-site-studio-five.vercel.app`
+- Production commit: `58ef839`
 
 ## Implemented
 
@@ -27,3 +28,4 @@
 ## Known blocker
 
 - `https://like-that-cutz.vercel.app` currently returns 404. Its real brand artwork is shown, but the proof card intentionally remains non-clickable until the public deployment is restored.
+- The authenticated/payment experience is deployed in setup mode until the Clerk, Neon, Stripe, and inquiry-delivery environment values are connected.

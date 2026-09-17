@@ -24,6 +24,9 @@
 - Next.js production build: passed after the final proof-link update.
 - glTF validation: passed (18 meshes, 4 materials, 6,824 triangles).
 - Automated browser screenshot was attempted but unavailable because the browser daemon failed and Chromium download timed out. No visual browser pass is claimed.
+- GitHub: pushed to `codex/push2start-finish` and fast-forwarded to `main` at `58ef839`.
+- Vercel production deployment: completed successfully.
+- Production smoke check: homepage title/key content, client setup state, GLB asset, and portfolio image asset all returned successfully.
 
 ## Blockers
 
@@ -32,4 +35,4 @@
 
 ## Exact next step
 
-Commit and push `codex/push2start-finish`, then verify the Vercel preview deployment before promoting it to production.
+Connect Clerk, Neon, Stripe, and inquiry delivery in Vercel; apply `db/schema.sql`; then test one seeded client through sign-in and a Stripe test-mode milestone payment.
