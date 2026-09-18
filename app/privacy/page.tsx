@@ -29,7 +29,7 @@ export default function Privacy() {
 
         <h2>1. Who is responsible</h2>
         <p>
-          TODO_FROM_KING, trading as {config.business.name}, based in Detroit, Michigan, is responsible
+          {config.business.legalEntity}, trading as {config.business.name}, based in Detroit, Michigan, is responsible
           for the information described here. Contact:{" "}
           <a href={`mailto:${config.business.email}`}>{config.business.email}</a>.
         </p>

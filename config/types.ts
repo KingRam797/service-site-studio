@@ -73,6 +73,8 @@ export type SiteConfig = {
   business: {
     name: string;
     owner?: string;
+    /** Registered entity behind the trading name, for legal pages and the copyright line. */
+    legalEntity: string;
     location: string;
     phone: string;
     email: string;

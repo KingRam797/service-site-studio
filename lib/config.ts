@@ -7,6 +7,7 @@ export function validateSiteConfig(config: SiteConfig): string[] {
   const required = [
     ["business.name", config.business.name],
     ["business.location", config.business.location],
+    ["business.legalEntity", config.business.legalEntity],
     ["hero.headline", config.hero.headline],
     ["conversion.heading", config.conversion.heading],
   ] as const;

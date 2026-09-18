@@ -29,7 +29,7 @@ export default function Terms() {
 
         <h2>1. Who these terms are between</h2>
         <p>
-          These terms are between TODO_FROM_KING, trading as {config.business.name} (&ldquo;we&rdquo;),
+          These terms are between {config.business.legalEntity}, trading as {config.business.name}{" "}(&ldquo;we&rdquo;),
           and the business or person who engages us (&ldquo;you&rdquo;).
         </p>
 
