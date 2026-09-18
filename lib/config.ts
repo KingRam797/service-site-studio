@@ -58,3 +58,11 @@ export function configToCss(config: SiteConfig): React.CSSProperties {
 export function phoneHref(phone: string) {
   return `tel:${phone.replace(/[^+\d]/g, "")}`;
 }
+
+/**
+ * True only for a value that can dial. Placeholder tokens such as
+ * TODO_FROM_KING must render as flagged text, never as a broken tel: link.
+ */
+export function hasDialablePhone(phone: string) {
+  return phone.replace(/[^+\d]/g, "").length >= 10;
+}

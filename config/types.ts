@@ -25,13 +25,18 @@ export type ProofItem = {
   category: string;
   description: string;
   image?: string;
+  /** Descriptive alt text for `image`. Falls back to a generic preview label. */
+  imageAlt?: string;
   result?: string;
+  /** One line on what the site does for the business. Omitted renders nothing. */
+  outcome?: string;
   focalPoint?: string;
   href?: string;
 };
 
 export type Service = {
   name: string;
+  slug: string;
   description: string;
   price?: string;
   duration?: string;
@@ -46,6 +51,8 @@ export type ConversionConfig = {
   intro: string;
   submitLabel: string;
   successMessage: string;
+  /** e.g. "within one business day". Unset renders no reply-window claim. */
+  replyWindow?: string;
   fallback: "email" | "sms";
   depositLink?: string;
   externalBookingUrl?: string;

@@ -1,72 +1,35 @@
 import { siteConfig } from "@/config/site.config";
-import { configToCss } from "@/lib/config";
+import { configToCss, hasDialablePhone, phoneHref } from "@/lib/config";
 import Image from "next/image";
+import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import InquiryForm from "./components/InquiryForm";
+import Testimonials from "./components/Testimonials";
+import TrackedLink from "./components/TrackedLink";
+import { faqPageSchema, jsonLdProps } from "@/lib/structured-data";
 import PushScrollWorld from "./components/PushScrollWorld";
 import "./brand.css";
-
-function BranchMark({ compact = false }: { compact?: boolean }) {
-  return (
-    <span className={compact ? "branch-mark branch-mark-compact" : "branch-mark"} aria-hidden="true">
-      <Image src="/brand/push2start-symbol.jpeg" alt="" width={96} height={96} />
-    </span>
-  );
-}
-
-function Wordmark({ footer = false }: { footer?: boolean }) {
-  return (
-    <span className={footer ? "brand brand-footer" : "brand"}>
-      <BranchMark compact={!footer} />
-      <span><strong>push</strong><b>2</b><strong>Start</strong></span>
-    </span>
-  );
-}
 
 function ProofCard({ item, index }: { item: (typeof siteConfig.proof.items)[number]; index: number }) {
   const content = (
     <>
       <div className="project-visual">
-        {item.image ? <Image src={item.image} alt={`${item.title} website preview`} fill sizes="(max-width: 700px) 100vw, 50vw" /> : <span>{item.title.slice(0, 2)}</span>}
+        {item.image ? <Image src={item.image} alt={item.imageAlt ?? `${item.title} website preview`} fill sizes="(max-width: 700px) 100vw, 50vw" /> : <span>{item.title.slice(0, 2)}</span>}
         <div className="project-code"><span>P2S/{String(index + 1).padStart(2, "0")}</span><i /> <i /> <i /></div>
       </div>
       <div className="project-copy">
-        <p>{item.category}</p><h3>{item.title}</h3><span>{item.description}</span>{item.result && <strong>{item.result}<b>{item.href ? "↗" : "•"}</b></strong>}
+        <p>{item.category}</p><h3>{item.title}</h3><span>{item.description}</span>{item.outcome && <span className="project-outcome">{item.outcome}</span>}{item.result && <strong>{item.result}<b>{item.href ? "↗" : "•"}</b></strong>}
       </div>
     </>
   );
-  return item.href ? <a className="proof-card" href={item.href} target="_blank" rel="noreferrer" aria-label={`View ${item.title}`}>{content}</a> : <article className="proof-card proof-card-private">{content}</article>;
+  return item.href ? <a className="proof-card" href={item.href} target="_blank" rel="noreferrer">{content}</a> : <article className="proof-card proof-card-private">{content}</article>;
 }
 
 export default function Home() {
   const config = siteConfig;
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": config.seo.businessType,
-    name: config.business.name,
-    description: config.business.shortDescription,
-    areaServed: config.business.location,
-    makesOffer: config.services.items.map((service) => ({
-      "@type": "Offer",
-      price: service.price?.replace(/[^0-9.]/g, ""),
-      priceCurrency: "USD",
-      itemOffered: { "@type": "Service", name: service.name, description: service.description },
-    })),
-  };
-
   return (
     <div className="site" style={configToCss(config)}>
       <a className="skip-link" href="#main">Skip to main content</a>
-      <header className="header" id="top">
-        <a className="wordmark" href="#top" aria-label="push2Start home"><Wordmark /></a>
-        <nav aria-label="Primary navigation">
-          <a href="#proof">Work</a>
-          <a href="#services">Builds</a>
-          <a href="#process">Process</a>
-          <a href="#faq">Questions</a>
-          <a href="/client">Client login</a>
-        </nav>
-        <a className="header-action" href="#start">Start a build <span>↗</span></a>
-      </header>
+      <SiteHeader home />
 
       <main id="main">
         <section className="hero" aria-labelledby="hero-title">
@@ -76,15 +39,23 @@ export default function Home() {
             <p className="hero-body">{config.hero.body}</p>
             <div className="actions">
               {config.hero.actions.map((action) => (
-                <a className={`button button-${action.kind ?? "secondary"}`} href={action.href} key={action.label}>{action.label}<span aria-hidden="true">↗</span></a>
+                <TrackedLink
+                  className={`button button-${action.kind ?? "secondary"}`}
+                  href={action.href}
+                  key={action.label}
+                  event={action.href === "#services" ? "compare_builds_click" : "start_build_click"}
+                  properties={action.href === "#services" ? undefined : { location: "hero" }}
+                >
+                  {action.label}<span aria-hidden="true">↗</span>
+                </TrackedLink>
               ))}
             </div>
           </div>
           <PushScrollWorld />
-          <a className="brand-terminal" href="#start" aria-label="Start your Push2Start build">
-            <code><span>$</span> <b>git push</b> origin main<span className="terminal-cursor" aria-hidden="true"> ▌</span></code>
-            <span className="terminal-caption">ideas move here <b aria-hidden="true">→</b></span>
-          </a>
+          <TrackedLink className="brand-terminal" href="#start" aria-label="Start your Push2Start build" event="start_build_click" properties={{ location: "hero_terminal" }}>
+            <code aria-hidden="true"><span>$</span> <b>git push</b> origin main<span className="terminal-cursor"> ▌</span></code>
+            <span className="terminal-caption" aria-hidden="true">ideas move here <b>→</b></span>
+          </TrackedLink>
           <dl className="fact-strip">
             {config.hero.facts.map((fact, index) => <div key={fact.label}><dt>0{index + 1} / {fact.label}</dt><dd>{fact.value}</dd></div>)}
           </dl>
@@ -109,6 +80,8 @@ export default function Home() {
           </div>
         </section>
 
+        <Testimonials />
+
         <section className="services section" id="services">
           <div className="section-heading services-heading">
             <p className="eyebrow">{config.services.eyebrow}</p>
@@ -119,9 +92,9 @@ export default function Home() {
             {config.services.items.map((service, index) => (
               <article className="service-row" key={service.name}>
                 <span>0{index + 1}</span>
-                <div className="service-copy"><p>{index === 0 ? "Proof Page" : index === 1 ? "Booking Ready" : "Operations Site"}</p><h3>{service.name}</h3><strong>{service.note}</strong><span>{service.description}</span></div>
+                <div className="service-copy"><h3>{service.name}</h3><strong>{service.note}</strong><span>{service.description}</span></div>
                 <div className="service-meta">{service.price && <strong>{service.price}</strong>}{service.duration && <span>{service.duration}</span>}</div>
-                <a href="#start" aria-label={`Ask about ${service.name}`}>Choose <b>↘</b></a>
+                <TrackedLink href={`/${service.slug}`} aria-label={`Choose ${service.name}`} event="tier_select" properties={{ tier: service.name }}>Choose <b>↘</b></TrackedLink>
               </article>
             ))}
           </div>
@@ -171,18 +144,25 @@ export default function Home() {
             <h2>{config.conversion.heading}</h2>
             <p>{config.conversion.intro}</p>
             <div className="availability"><span /><div><strong>{config.business.availability}</strong><small>{config.business.location}</small></div></div>
+            <ul className="contact-paths">
+              {config.business.email && (
+                <li><span>Email</span><a href={`mailto:${config.business.email}`}>{config.business.email}</a></li>
+              )}
+              <li>
+                <span>Phone / text</span>
+                {hasDialablePhone(config.business.phone)
+                  ? <a href={phoneHref(config.business.phone)}>{config.business.phone}</a>
+                  : <em>{config.business.phone}</em>}
+              </li>
+            </ul>
           </div>
           <InquiryForm config={config} />
         </section>
       </main>
 
-      <footer>
-        <a className="footer-name" href="#top"><Wordmark footer /></a>
-        <p>{config.footerNote}</p>
-        <div className="footer-links"><a href="/client">Client login</a>{config.business.socials?.map((social) => <a href={social.href} key={social.label} target="_blank" rel="noreferrer">{social.label}</a>)}<a href="#top" className="back-top">Back to top ↑</a></div>
-      </footer>
-      <a className="mobile-action" href="#start">{config.conversion.submitLabel}<span>→</span></a>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <SiteFooter home />
+      <TrackedLink className="mobile-action" href="#start" event="start_build_click" properties={{ location: "footer" }}>{config.conversion.submitLabel}<span>→</span></TrackedLink>
+      <script {...jsonLdProps(faqPageSchema())} />
     </div>
   );
 }

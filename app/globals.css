@@ -108,7 +108,19 @@ button, input, textarea, select { font: inherit; }
 .proof-card:nth-child(1) .project-copy > p, .proof-card:nth-child(4) .project-copy > p { color: #ff8c70; }
 .project-copy h3 { margin: .7rem 0 1rem; font: 900 clamp(2rem, 4vw, 4.7rem)/.88 var(--display); letter-spacing: -.06em; text-transform: uppercase; }
 .project-copy > span { display: block; max-width: 580px; color: inherit; line-height: 1.55; opacity: .72; }
+.project-outcome { display: block; margin-top: 1rem; font-size: .85rem; line-height: 1.5; opacity: .85; }
 .project-copy > strong { margin-top: 2rem; padding-top: 1rem; display: flex; justify-content: space-between; border-top: 1px solid currentColor; font-size: .76rem; text-transform: uppercase; opacity: .9; }
+.testimonials { border-top: 1px solid var(--line); }
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+.testimonial-card { margin: 0; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); }
+.testimonial-card blockquote { margin: 0; font-size: 1.12rem; line-height: 1.6; }
+.testimonial-card blockquote::before { content: "\201C"; }
+.testimonial-card blockquote::after { content: "\201D"; }
+.testimonial-card figcaption { margin-top: auto; display: grid; gap: .3rem; }
+.testimonial-card figcaption strong { font-size: .95rem; }
+.testimonial-card figcaption a, .testimonial-card figcaption span { color: var(--accent-alt); font: 800 .7rem/1.3 ui-monospace, monospace; text-transform: uppercase; }
+.testimonial-card figcaption a:hover { text-decoration: underline; }
+.testimonial-card figcaption time { color: var(--muted); font: .7rem/1.3 ui-monospace, monospace; }
 .services { border-top: 1px solid var(--line); }
 .service-list { border-top: 2px solid var(--ink); }
 .service-row { display: grid; grid-template-columns: 55px 1fr .45fr 110px; gap: 1.5rem; padding: 2rem 0; align-items: start; border-bottom: 1px solid var(--line); }
@@ -166,6 +178,11 @@ button, input, textarea, select { font: inherit; }
 .availability > span { width: 11px; height: 11px; border-radius: 50%; background: #35d07f; box-shadow: 0 0 0 5px color-mix(in srgb, #35d07f 18%, transparent); }
 .availability strong, .availability small { display: block; }
 .availability small { margin-top: .25rem; color: #b9c5ee; }
+.contact-paths { margin: 2rem 0 0; padding: 0; list-style: none; display: grid; gap: .8rem; }
+.contact-paths li { display: grid; gap: .2rem; }
+.contact-paths span { font: 800 .65rem/1 ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; opacity: .72; }
+.contact-paths a { font-size: .95rem; text-decoration: underline; text-underline-offset: 3px; }
+.contact-paths em { font: .8rem/1.4 ui-monospace, monospace; font-style: normal; opacity: .66; }
 .inquiry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .field { display: flex; flex-direction: column; gap: .5rem; }
 .field-wide, .form-submit { grid-column: 1/-1; }
@@ -177,6 +194,36 @@ button, input, textarea, select { font: inherit; }
 .form-submit button { width: 100%; min-height: 58px; padding: 0 1.2rem; display: flex; align-items: center; justify-content: space-between; border: 0; border-radius: 999px; background: var(--accent); color: white; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 .form-submit button:disabled { opacity: .7; cursor: wait; }
 .form-submit p { margin: .7rem 0 0; color: #c5cff3; font-size: .78rem; }
+.form-note a { text-decoration: underline; }
+.form-note-error { color: #ffd9d0; }
+.honeypot { position: absolute; left: 0; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.honeypot input { width: 1px; }
+.tier-hero { max-width: 900px; }
+.tier-hero h1 { margin: 0 0 1rem; font-family: var(--display); font-weight: 900; font-size: clamp(2.4rem, 5.4vw, 4.6rem); line-height: .95; letter-spacing: -.06em; text-transform: uppercase; }
+.tier-note { margin: 0 0 1.5rem; color: var(--accent-alt); font-size: 1rem; font-weight: 800; }
+.tier-lede { max-width: 700px; color: var(--muted); font-size: 1.08rem; line-height: 1.7; }
+.tier-facts { margin: 2.5rem 0; }
+.tier-detail { border-top: 1px solid var(--line); }
+.tier-detail h2 { margin: 0 0 1.2rem; font-family: var(--display); font-weight: 900; font-size: clamp(2rem, 4vw, 3.2rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+.tier-steps { margin: 2.5rem 0 0; padding: 0; list-style: none; counter-reset: tier-step; }
+.tier-steps li { padding: 1.5rem 0; border-top: 1px solid var(--line); counter-increment: tier-step; }
+.tier-steps h3 { margin: 0; font-size: 1.1rem; }
+.tier-steps h3::before { content: "0" counter(tier-step) " / "; color: var(--accent); font: 750 .72rem/1 ui-monospace, monospace; }
+.tier-steps p { margin: .4rem 0 0; color: var(--muted); line-height: 1.6; }
+.tier-footnote { margin-top: 2rem; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+.tier-footnote a { color: var(--accent-alt); text-decoration: underline; text-underline-offset: 3px; }
+.legal { max-width: 760px; }
+.legal h1 { margin: 0 0 1.5rem; font-family: var(--display); font-weight: 900; font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+.legal h2 { margin: 3rem 0 1rem; font-size: 1.15rem; font-weight: 850; }
+.legal p, .legal li { color: var(--muted); line-height: 1.75; }
+.legal .legal-lede { font-size: 1.08rem; }
+.legal ul { padding-left: 1.2rem; display: grid; gap: .6rem; }
+.legal li strong, .legal p strong { color: var(--ink); }
+.legal a { color: var(--accent-alt); text-decoration: underline; text-underline-offset: 3px; }
+.legal time { color: inherit; }
+.footer-copy { display: grid; gap: .6rem; }
+.footer-legal { font-size: .78rem; }
+.footer-legal a { text-decoration: underline; text-underline-offset: 3px; }
 footer { min-height: 220px; padding: 3rem max(1.25rem, calc((100vw - 1320px)/2)); display: grid; grid-template-columns: 1fr 1fr auto; align-items: end; gap: 2rem; background: var(--ink); color: white; }
 .brand-footer { font-size: clamp(1.7rem, 3vw, 3rem); }
 .brand-footer .branch-mark { background: var(--accent); }
