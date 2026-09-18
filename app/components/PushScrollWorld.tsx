@@ -84,14 +84,14 @@ export default function PushScrollWorld() {
       if (disposed) return;
       const renderer = new THREE.WebGLRenderer({ canvas: surface!, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
-      renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.5;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1;
       const scene = new THREE.Scene();
       const pmrem = new THREE.PMREMGenerator(renderer);
       const room = new RoomEnvironment(); const env = pmrem.fromScene(room); scene.environment = env.texture;
       room.dispose(); pmrem.dispose();
       const camera = new THREE.PerspectiveCamera(35, 1, .1, 40); camera.position.set(0, 0, 8);
-      scene.add(new THREE.HemisphereLight(0xffffff, 0x14252c, 3));
-      const key = new THREE.DirectionalLight(0xffffff, 4); key.position.set(-3, 4, 5); scene.add(key);
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x14252c, 1.2));
+      const key = new THREE.DirectionalLight(0xffffff, 2); key.position.set(-3, 4, 5); scene.add(key);
       const fill = new THREE.DirectionalLight(0x00cdf0, 2); fill.position.set(3, -2, 4); scene.add(fill);
       let model: import("three").Group | undefined;
       const release = (root: import("three").Object3D) => root.traverse(o => {
@@ -106,12 +106,20 @@ export default function PushScrollWorld() {
       model.traverse(object => {
         if (!(object instanceof THREE.Mesh)) return;
         const materials = Array.isArray(object.material) ? object.material : [object.material];
-        materials.forEach(material => {
-          if (material instanceof THREE.MeshStandardMaterial && material.name === "BranchGradient") {
-            // glTF cannot encode vertex-colored emission; avoid a white emissive wash.
-            material.emissive.set(0x000000); material.envMapIntensity = .35;
-          }
+        const corrected = materials.map(material => {
+          if (material.name !== "BranchGradient") return material;
+          // Keep the logo's exported lime/cyan colors independent of studio
+          // lights, white reflections, and filmic highlight desaturation.
+          const branded = new THREE.MeshBasicMaterial({
+            name: "BranchGradient",
+            vertexColors: true,
+            toneMapped: false,
+            side: material.side,
+          });
+          material.dispose();
+          return branded;
         });
+        object.material = Array.isArray(object.material) ? corrected : corrected[0];
       });
       const orientation = new THREE.Group(); orientation.rotation.x = Math.PI / 2; orientation.add(model);
       const assembly = new THREE.Group(); assembly.add(orientation); scene.add(assembly);

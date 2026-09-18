@@ -1,5 +1,11 @@
 # Progress
 
+## Logo color correction
+
+- User reported the live symbol looked white. Confirmed all five branch meshes retain valid lime/cyan `COLOR_0` data in the GLB.
+- Changed only runtime materials/lighting: branch colors now use an unlit, vertex-colored material without filmic tone mapping; reduced chrome lighting/exposure. Existing geometry, Blender source, and scroll animation are unchanged.
+- Browser WebGL verification remains unavailable in this environment; verify the color appearance in a regular browser after deployment.
+
 ## Blender scroll build
 
 - Built the approved diamond/branch symbol with portable Blender 4.5.3 LTS; editable source and deterministic script are in `assets/push-symbol/`.
