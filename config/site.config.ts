@@ -62,6 +62,7 @@ export const siteConfig: SiteConfig = {
         result: "Brand and operations in one path",
         href: "https://creative-impressions.vercel.app/",
         image: "/work/creative-impressions.png",
+        imageAlt: "Creative Impressions homepage — event décor gallery above a quote request form",
       },
       {
         title: "Like That Cutz",
@@ -69,6 +70,7 @@ export const siteConfig: SiteConfig = {
         description: "A mobile-first booking direction connecting real portfolio work, service rules, buffers, and payment choice.",
         result: "Private preview · public launch pending",
         image: "/work/like-that-cutz.jpg",
+        imageAlt: "Like That Cutz homepage — mobile barber booking screen with service list and cut portfolio",
       },
       {
         title: "Windows To The Sol",
@@ -77,6 +79,7 @@ export const siteConfig: SiteConfig = {
         result: "Worldbuilding made explorable",
         href: "https://windows-to-the-sol.higgsfield.app",
         image: "/work/windows-to-the-sol.png",
+        imageAlt: "Windows To The Sol homepage — cinematic title sequence introducing the story world",
       },
       {
         title: "Smile Now / Cry Later",
@@ -85,6 +88,7 @@ export const siteConfig: SiteConfig = {
         result: "A studio offer with a point of view",
         href: "https://i-c-melodies.vercel.app/",
         image: "/work/sncl.jpg",
+        imageAlt: "Smile Now / Cry Later homepage — recording studio session booking with artist photography",
       },
     ],
   },

@@ -13,7 +13,7 @@ function ProofCard({ item, index }: { item: (typeof siteConfig.proof.items)[numb
   const content = (
     <>
       <div className="project-visual">
-        {item.image ? <Image src={item.image} alt={`${item.title} website preview`} fill sizes="(max-width: 700px) 100vw, 50vw" /> : <span>{item.title.slice(0, 2)}</span>}
+        {item.image ? <Image src={item.image} alt={item.imageAlt ?? `${item.title} website preview`} fill sizes="(max-width: 700px) 100vw, 50vw" /> : <span>{item.title.slice(0, 2)}</span>}
         <div className="project-code"><span>P2S/{String(index + 1).padStart(2, "0")}</span><i /> <i /> <i /></div>
       </div>
       <div className="project-copy">
@@ -21,7 +21,7 @@ function ProofCard({ item, index }: { item: (typeof siteConfig.proof.items)[numb
       </div>
     </>
   );
-  return item.href ? <a className="proof-card" href={item.href} target="_blank" rel="noreferrer" aria-label={`View ${item.title}`}>{content}</a> : <article className="proof-card proof-card-private">{content}</article>;
+  return item.href ? <a className="proof-card" href={item.href} target="_blank" rel="noreferrer">{content}</a> : <article className="proof-card proof-card-private">{content}</article>;
 }
 
 export default function Home() {
@@ -77,8 +77,8 @@ export default function Home() {
           </div>
           <PushScrollWorld />
           <TrackedLink className="brand-terminal" href="#start" aria-label="Start your Push2Start build" event="start_build_click" properties={{ location: "hero_terminal" }}>
-            <code><span>$</span> <b>git push</b> origin main<span className="terminal-cursor" aria-hidden="true"> ▌</span></code>
-            <span className="terminal-caption">ideas move here <b aria-hidden="true">→</b></span>
+            <code aria-hidden="true"><span>$</span> <b>git push</b> origin main<span className="terminal-cursor"> ▌</span></code>
+            <span className="terminal-caption" aria-hidden="true">ideas move here <b>→</b></span>
           </TrackedLink>
           <dl className="fact-strip">
             {config.hero.facts.map((fact, index) => <div key={fact.label}><dt>0{index + 1} / {fact.label}</dt><dd>{fact.value}</dd></div>)}
@@ -118,7 +118,7 @@ export default function Home() {
                 <span>0{index + 1}</span>
                 <div className="service-copy"><h3>{service.name}</h3><strong>{service.note}</strong><span>{service.description}</span></div>
                 <div className="service-meta">{service.price && <strong>{service.price}</strong>}{service.duration && <span>{service.duration}</span>}</div>
-                <TrackedLink href="#start" aria-label={`Ask about ${service.name}`} event="tier_select" properties={{ tier: service.name }}>Choose <b>↘</b></TrackedLink>
+                <TrackedLink href="#start" aria-label={`Choose ${service.name}`} event="tier_select" properties={{ tier: service.name }}>Choose <b>↘</b></TrackedLink>
               </article>
             ))}
           </div>
