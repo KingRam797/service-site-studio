@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site.config";
 import { clientKey, pruneRateLimits, rateLimit } from "@/lib/rate-limit";
-import { deliverInquiry } from "@/lib/inquiry-delivery";
+import { deliverInquiry, deliveryDiagnostics } from "@/lib/inquiry-delivery";
 
 const allowedFields = new Set(siteConfig.conversion.fields);
 
@@ -72,4 +72,21 @@ export async function POST(request: Request) {
 
   if (!delivered) return NextResponse.json({ error: "We could not deliver your request." }, { status: 503 });
   return accepted();
+}
+
+/**
+ * Delivery diagnostics for a live deployment. Returns no secrets: presence
+ * booleans, the already-public recipient, and Resend's own auth status.
+ * Rate limited, and safe to delete once delivery is confirmed working.
+ */
+export async function GET(request: Request) {
+  pruneRateLimits();
+  const limit = rateLimit(`diagnostics:${clientKey(request)}`, 10, WINDOW_MS);
+  if (!limit.allowed) {
+    return NextResponse.json({ error: "Too many requests." }, { status: 429 });
+  }
+
+  return NextResponse.json(await deliveryDiagnostics(), {
+    headers: { "cache-control": "no-store" },
+  });
 }

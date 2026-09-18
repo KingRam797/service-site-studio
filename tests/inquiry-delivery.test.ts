@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { emailOwner, inquiryRecipient } from "../lib/inquiry-delivery.ts";
+import { deliveryDiagnostics, emailOwner, inquiryRecipient } from "../lib/inquiry-delivery.ts";
 import { siteConfig } from "../config/site.config.ts";
 
 const inquiry = { name: "Test", email: "lead@example.com", message: "A build request." };
@@ -12,8 +12,10 @@ async function withFetch(
 ) {
   const original = globalThis.fetch;
   const calls: Array<{ url: string; body: Record<string, unknown> }> = [];
-  globalThis.fetch = (async (url: string, init: RequestInit) => {
-    calls.push({ url: String(url), body: JSON.parse(String(init.body)) });
+  globalThis.fetch = (async (url: string, init: RequestInit = {}) => {
+    // Bodyless requests (the diagnostics GET) record an empty body rather than
+    // throwing inside the stub and masking the real result.
+    calls.push({ url: String(url), body: init.body ? JSON.parse(String(init.body)) : {} });
     return handler(String(url), init);
   }) as typeof fetch;
   try {
@@ -89,6 +91,40 @@ test("an unreachable provider reports failure rather than throwing", async () =>
   process.env.RESEND_API_KEY = "re_test";
   await withFetch(() => { throw new Error("network down"); }, async () => {
     assert.equal(await emailOwner(inquiry), false);
+  });
+  delete process.env.RESEND_API_KEY;
+});
+
+test("diagnostics report a missing key without calling Resend", async () => {
+  delete process.env.RESEND_API_KEY;
+  const calls = await withFetch(() => new Response("{}", { status: 200 }), async () => {
+    const report = await deliveryDiagnostics();
+    assert.equal(report.resendKeyPresent, false);
+    assert.equal(report.resendKeyLooksValid, null);
+    assert.equal(report.recipient, siteConfig.business.email);
+    assert.equal(report.senderIsSharedTestAddress, true);
+  });
+  assert.equal(calls.length, 0);
+});
+
+test("diagnostics surface a rejected key and never echo its value", async () => {
+  process.env.RESEND_API_KEY = "re_secret_value";
+  await withFetch(() => new Response("invalid api key", { status: 401 }), async () => {
+    const report = await deliveryDiagnostics();
+    assert.equal(report.resendKeyPresent, true);
+    assert.equal(report.resendKeyLooksValid, false);
+    assert.equal(report.resendAuthStatus, 401);
+    assert.ok(!JSON.stringify(report).includes("re_secret_value"));
+  });
+  delete process.env.RESEND_API_KEY;
+});
+
+test("diagnostics confirm a live key", async () => {
+  process.env.RESEND_API_KEY = "re_good";
+  await withFetch(() => new Response("{\"data\":[]}", { status: 200 }), async () => {
+    const report = await deliveryDiagnostics();
+    assert.equal(report.resendKeyLooksValid, true);
+    assert.equal(report.resendAuthStatus, 200);
   });
   delete process.env.RESEND_API_KEY;
 });

@@ -123,3 +123,41 @@ export async function deliverInquiry(inquiry: Inquiry) {
 
   return { stored, webhooked, emailed, delivered: stored || webhooked || emailed };
 }
+
+/**
+ * Non-secret snapshot of why delivery would or would not work, for diagnosing
+ * a live deployment without log access. It never returns the API key — only
+ * whether one is present and what Resend says about it.
+ */
+export async function deliveryDiagnostics() {
+  const resendKey = process.env.RESEND_API_KEY;
+  const diagnostics = {
+    resendKeyPresent: Boolean(resendKey),
+    resendKeyLooksValid: null as boolean | null,
+    resendAuthStatus: null as number | null,
+    resendAuthDetail: null as string | null,
+    recipient: inquiryRecipient(),
+    sender: process.env.INQUIRY_FROM_EMAIL || DEFAULT_FROM_EMAIL,
+    senderIsSharedTestAddress: !process.env.INQUIRY_FROM_EMAIL,
+    databaseConfigured,
+    webhookConfigured: Boolean(process.env.INQUIRY_WEBHOOK_URL),
+  };
+
+  if (!resendKey) return diagnostics;
+
+  try {
+    // Cheapest authenticated read: 200 means the key is live, 401 means it is
+    // missing, revoked, or mistyped.
+    const response = await fetch("https://api.resend.com/domains", {
+      headers: { authorization: `Bearer ${resendKey}` },
+    });
+    diagnostics.resendAuthStatus = response.status;
+    diagnostics.resendKeyLooksValid = response.ok;
+    if (!response.ok) diagnostics.resendAuthDetail = (await response.text().catch(() => "")).slice(0, 300);
+  } catch (error) {
+    diagnostics.resendKeyLooksValid = false;
+    diagnostics.resendAuthDetail = error instanceof Error ? error.message : "request failed";
+  }
+
+  return diagnostics;
+}
