@@ -32,6 +32,7 @@ export type ProofItem = {
 
 export type Service = {
   name: string;
+  slug: string;
   description: string;
   price?: string;
   duration?: string;

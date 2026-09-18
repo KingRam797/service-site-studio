@@ -119,7 +119,7 @@ export default function Home() {
             {config.services.items.map((service, index) => (
               <article className="service-row" key={service.name}>
                 <span>0{index + 1}</span>
-                <div className="service-copy"><p>{index === 0 ? "Proof Page" : index === 1 ? "Booking Ready" : "Operations Site"}</p><h3>{service.name}</h3><strong>{service.note}</strong><span>{service.description}</span></div>
+                <div className="service-copy"><h3>{service.name}</h3><strong>{service.note}</strong><span>{service.description}</span></div>
                 <div className="service-meta">{service.price && <strong>{service.price}</strong>}{service.duration && <span>{service.duration}</span>}</div>
                 <a href="#start" aria-label={`Ask about ${service.name}`}>Choose <b>↘</b></a>
               </article>
