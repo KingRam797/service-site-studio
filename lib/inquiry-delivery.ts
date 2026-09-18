@@ -161,3 +161,44 @@ export async function deliveryDiagnostics() {
 
   return diagnostics;
 }
+
+/**
+ * Performs one real send and reports Resend's verbatim response.
+ *
+ * Auth succeeding says nothing about whether a send is permitted: without a
+ * verified domain, Resend accepts the key but refuses any recipient other
+ * than the address the account was registered with, and the refusal is only
+ * visible on the send call itself. Returns the status and body so the cause
+ * is named rather than inferred. Never returns the API key.
+ */
+export async function sendTestEmail() {
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) return { attempted: false, reason: "RESEND_API_KEY is not set" };
+
+  const payload = {
+    from: process.env.INQUIRY_FROM_EMAIL || DEFAULT_FROM_EMAIL,
+    to: [inquiryRecipient()],
+    subject: "push2Start delivery test",
+    text: "This is a delivery test for the push2Start inquiry form. If you are reading it, direct delivery works.",
+  };
+
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { authorization: `Bearer ${resendKey}`, "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    return {
+      attempted: true,
+      ok: response.ok,
+      status: response.status,
+      // Resend names the cause here — an unverified sender, a recipient the
+      // free tier will not accept, a malformed from address.
+      body: (await response.text().catch(() => "")).slice(0, 600),
+      sentFrom: payload.from,
+      sentTo: payload.to,
+    };
+  } catch (error) {
+    return { attempted: true, ok: false, error: error instanceof Error ? error.message : "request failed" };
+  }
+}

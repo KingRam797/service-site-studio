@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site.config";
 import { clientKey, pruneRateLimits, rateLimit } from "@/lib/rate-limit";
-import { deliverInquiry, deliveryDiagnostics } from "@/lib/inquiry-delivery";
+import { deliverInquiry, deliveryDiagnostics, sendTestEmail } from "@/lib/inquiry-delivery";
 
 const allowedFields = new Set(siteConfig.conversion.fields);
 
@@ -84,6 +84,15 @@ export async function GET(request: Request) {
   const limit = rateLimit(`diagnostics:${clientKey(request)}`, 10, WINDOW_MS);
   if (!limit.allowed) {
     return NextResponse.json({ error: "Too many requests." }, { status: 429 });
+  }
+
+  // ?test=send performs one real send to the configured recipient and returns
+  // Resend's verbatim response. Opt-in, so an ordinary GET never sends mail.
+  if (new URL(request.url).searchParams.get("test") === "send") {
+    return NextResponse.json(
+      { diagnostics: await deliveryDiagnostics(), testSend: await sendTestEmail() },
+      { headers: { "cache-control": "no-store" } },
+    );
   }
 
   return NextResponse.json(await deliveryDiagnostics(), {
