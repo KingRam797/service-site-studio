@@ -72,7 +72,7 @@ export default function ServicePage({ slug }: { slug: string }) {
           <h2>{config.about.heading}</h2>
           <p className="tier-lede">{config.about.body}</p>
           <p className="tier-footnote">
-            Serving {config.business.location} Other builds:{" "}
+            {config.business.location}. Other builds:{" "}
             {others.map((other, index) => (
               <span key={other.slug}>
                 {index > 0 && " · "}

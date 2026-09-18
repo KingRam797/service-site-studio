@@ -56,7 +56,7 @@ export function SiteFooter({ home = false }: { home?: boolean }) {
       <div className="footer-copy">
         <p>{config.footerNote}</p>
         <p className="footer-legal">
-          © {new Date().getFullYear()} TODO_FROM_KING · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a>
+          © {new Date().getFullYear()} {config.business.legalEntity} · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a>
         </p>
       </div>
       <div className="footer-links">

@@ -4,8 +4,9 @@ export const siteConfig: SiteConfig = {
   business: {
     name: "push2Start",
     owner: "Victor Emerson",
+    legalEntity: "PainOrPane Professionals",
     location: "Detroit, Michigan · serving businesses remotely",
-    phone: "TODO_FROM_KING",
+    phone: "586-224-2150",
     email: "Push2starter@gmail.com",
     tagline: "Expert, enterprise-grade sites in 2 weeks or less.",
     shortDescription:
