@@ -196,7 +196,22 @@ button, input, textarea, select { font: inherit; }
 .form-submit p { margin: .7rem 0 0; color: #c5cff3; font-size: .78rem; }
 .form-note a { text-decoration: underline; }
 .form-note-error { color: #ffd9d0; }
-.honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.honeypot { position: absolute; left: 0; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.honeypot input { width: 1px; }
+.tier-hero { max-width: 900px; }
+.tier-hero h1 { margin: 0 0 1rem; font-family: var(--display); font-weight: 900; font-size: clamp(2.4rem, 5.4vw, 4.6rem); line-height: .95; letter-spacing: -.06em; text-transform: uppercase; }
+.tier-note { margin: 0 0 1.5rem; color: var(--accent-alt); font-size: 1rem; font-weight: 800; }
+.tier-lede { max-width: 700px; color: var(--muted); font-size: 1.08rem; line-height: 1.7; }
+.tier-facts { margin: 2.5rem 0; }
+.tier-detail { border-top: 1px solid var(--line); }
+.tier-detail h2 { margin: 0 0 1.2rem; font-family: var(--display); font-weight: 900; font-size: clamp(2rem, 4vw, 3.2rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+.tier-steps { margin: 2.5rem 0 0; padding: 0; list-style: none; counter-reset: tier-step; }
+.tier-steps li { padding: 1.5rem 0; border-top: 1px solid var(--line); counter-increment: tier-step; }
+.tier-steps h3 { margin: 0; font-size: 1.1rem; }
+.tier-steps h3::before { content: "0" counter(tier-step) " / "; color: var(--accent); font: 750 .72rem/1 ui-monospace, monospace; }
+.tier-steps p { margin: .4rem 0 0; color: var(--muted); line-height: 1.6; }
+.tier-footnote { margin-top: 2rem; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+.tier-footnote a { color: var(--accent-alt); text-decoration: underline; text-underline-offset: 3px; }
 .legal { max-width: 760px; }
 .legal h1 { margin: 0 0 1.5rem; font-family: var(--display); font-weight: 900; font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
 .legal h2 { margin: 3rem 0 1rem; font-size: 1.15rem; font-weight: 850; }

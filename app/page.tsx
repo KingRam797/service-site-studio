@@ -5,7 +5,7 @@ import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import InquiryForm from "./components/InquiryForm";
 import Testimonials from "./components/Testimonials";
 import TrackedLink from "./components/TrackedLink";
-import { testimonials } from "@/data/testimonials";
+import { faqPageSchema, jsonLdProps } from "@/lib/structured-data";
 import PushScrollWorld from "./components/PushScrollWorld";
 import "./brand.css";
 
@@ -26,30 +26,6 @@ function ProofCard({ item, index }: { item: (typeof siteConfig.proof.items)[numb
 
 export default function Home() {
   const config = siteConfig;
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": config.seo.businessType,
-    name: config.business.name,
-    description: config.business.shortDescription,
-    areaServed: config.business.location,
-    makesOffer: config.services.items.map((service) => ({
-      "@type": "Offer",
-      price: service.price?.replace(/[^0-9.]/g, ""),
-      priceCurrency: "USD",
-      itemOffered: { "@type": "Service", name: service.name, description: service.description },
-    })),
-    // Review schema is emitted only for real testimonials. An empty array must
-    // never produce review markup — that is a structured-data penalty risk.
-    ...(testimonials.length > 0 && {
-      review: testimonials.map((testimonial) => ({
-        "@type": "Review",
-        reviewBody: testimonial.quote,
-        datePublished: testimonial.date,
-        author: { "@type": "Person", name: testimonial.name },
-      })),
-    }),
-  };
-
   return (
     <div className="site" style={configToCss(config)}>
       <a className="skip-link" href="#main">Skip to main content</a>
@@ -118,7 +94,7 @@ export default function Home() {
                 <span>0{index + 1}</span>
                 <div className="service-copy"><h3>{service.name}</h3><strong>{service.note}</strong><span>{service.description}</span></div>
                 <div className="service-meta">{service.price && <strong>{service.price}</strong>}{service.duration && <span>{service.duration}</span>}</div>
-                <TrackedLink href="#start" aria-label={`Choose ${service.name}`} event="tier_select" properties={{ tier: service.name }}>Choose <b>↘</b></TrackedLink>
+                <TrackedLink href={`/${service.slug}`} aria-label={`Choose ${service.name}`} event="tier_select" properties={{ tier: service.name }}>Choose <b>↘</b></TrackedLink>
               </article>
             ))}
           </div>
@@ -186,7 +162,7 @@ export default function Home() {
 
       <SiteFooter home />
       <TrackedLink className="mobile-action" href="#start" event="start_build_click" properties={{ location: "footer" }}>{config.conversion.submitLabel}<span>→</span></TrackedLink>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <script {...jsonLdProps(faqPageSchema())} />
     </div>
   );
 }

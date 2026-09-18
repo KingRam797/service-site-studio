@@ -4,14 +4,15 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { siteConfig } from "@/config/site.config";
+import { jsonLdProps, professionalServiceSchema } from "@/lib/structured-data";
+import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
-
-const canonical = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const metadata: Metadata = {
   title: siteConfig.seo.title,
   description: siteConfig.seo.description,
-  metadataBase: canonical ? new URL(canonical) : undefined,
+  metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   openGraph: {
     title: siteConfig.seo.title,
     description: siteConfig.seo.description,
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         {children}
+        <script {...jsonLdProps(professionalServiceSchema())} />
         <Analytics />
         <SpeedInsights />
       </body>
