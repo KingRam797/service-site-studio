@@ -2,6 +2,8 @@ import { siteConfig } from "@/config/site.config";
 import { configToCss } from "@/lib/config";
 import Image from "next/image";
 import InquiryForm from "./components/InquiryForm";
+import Testimonials from "./components/Testimonials";
+import { testimonials } from "@/data/testimonials";
 import PushScrollWorld from "./components/PushScrollWorld";
 import "./brand.css";
 
@@ -30,7 +32,7 @@ function ProofCard({ item, index }: { item: (typeof siteConfig.proof.items)[numb
         <div className="project-code"><span>P2S/{String(index + 1).padStart(2, "0")}</span><i /> <i /> <i /></div>
       </div>
       <div className="project-copy">
-        <p>{item.category}</p><h3>{item.title}</h3><span>{item.description}</span>{item.result && <strong>{item.result}<b>{item.href ? "↗" : "•"}</b></strong>}
+        <p>{item.category}</p><h3>{item.title}</h3><span>{item.description}</span>{item.outcome && <span className="project-outcome">{item.outcome}</span>}{item.result && <strong>{item.result}<b>{item.href ? "↗" : "•"}</b></strong>}
       </div>
     </>
   );
@@ -51,6 +53,16 @@ export default function Home() {
       priceCurrency: "USD",
       itemOffered: { "@type": "Service", name: service.name, description: service.description },
     })),
+    // Review schema is emitted only for real testimonials. An empty array must
+    // never produce review markup — that is a structured-data penalty risk.
+    ...(testimonials.length > 0 && {
+      review: testimonials.map((testimonial) => ({
+        "@type": "Review",
+        reviewBody: testimonial.quote,
+        datePublished: testimonial.date,
+        author: { "@type": "Person", name: testimonial.name },
+      })),
+    }),
   };
 
   return (
@@ -108,6 +120,8 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <Testimonials />
 
         <section className="services section" id="services">
           <div className="section-heading services-heading">

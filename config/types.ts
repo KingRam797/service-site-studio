@@ -25,7 +25,11 @@ export type ProofItem = {
   category: string;
   description: string;
   image?: string;
+  /** Descriptive alt text for `image`. Falls back to a generic preview label. */
+  imageAlt?: string;
   result?: string;
+  /** One line on what the site does for the business. Omitted renders nothing. */
+  outcome?: string;
   focalPoint?: string;
   href?: string;
 };
