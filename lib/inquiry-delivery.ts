@@ -63,7 +63,9 @@ export async function postWebhook(inquiry: Inquiry) {
  * INQUIRY_FROM_EMAIL overrides the sender once a domain is verified.
  */
 export function inquiryRecipient() {
-  return process.env.INQUIRY_TO_EMAIL || siteConfig.business.email;
+  // Resend's shared sender compares the recipient with the account address
+  // case-sensitively. Normalize delivery only; keep the public branding intact.
+  return (process.env.INQUIRY_TO_EMAIL?.trim() || siteConfig.business.email).trim().toLowerCase();
 }
 
 export async function emailOwner(inquiry: Inquiry) {

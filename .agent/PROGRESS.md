@@ -1,5 +1,13 @@
 # Progress
 
+## Resend recipient repair (2026-09-18)
+
+- Production authenticates with Resend successfully (200); failed inquiry send returned 403 because `Push2starter@gmail.com` did not match the lowercase account recipient. Resend's successful dashboard test used `push2starter@gmail.com`; no sending domains are configured.
+- Normalized the delivery recipient (trim/lowercase), including `INQUIRY_TO_EMAIL`, for both inquiries and test sends. Blank overrides fall back to the business address. Public copy, service names, and the restored Like That Cutz link are unchanged.
+- Verification: all 32 tests, targeted ESLint, and the Next.js production build passed.
+- User explicitly authorized pushing the fix to `KingRam797/service-site-studio` main and verifying live delivery after automatic approval review initially blocked publication.
+- Next: push the tested fix, then verify the lowercase recipient plus one delivery test on production. Current production diagnostics report no database or webhook delivery fallback.
+
 ## Logo color correction
 
 - User reported the live symbol looked white. Confirmed all five branch meshes retain valid lime/cyan `COLOR_0` data in the GLB.

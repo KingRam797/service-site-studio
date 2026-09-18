@@ -49,7 +49,7 @@ test("the inquiry is addressed to the configured business email", async () => {
   const calls = await withFetch(() => new Response("{}", { status: 200 }), async () => {
     await emailOwner(inquiry);
   });
-  assert.deepEqual(calls[0].body.to, [siteConfig.business.email]);
+  assert.deepEqual(calls[0].body.to, [siteConfig.business.email.toLowerCase()]);
   assert.equal(calls[0].body.reply_to, "lead@example.com");
 });
 
@@ -77,7 +77,37 @@ test("INQUIRY_TO_EMAIL redirects the notification without changing the published
 
 test("the recipient falls back to the published business address", () => {
   delete process.env.INQUIRY_TO_EMAIL;
-  assert.equal(inquiryRecipient(), siteConfig.business.email);
+  assert.equal(inquiryRecipient(), siteConfig.business.email.toLowerCase());
+});
+
+test("both delivery paths normalize the owner address for Resend's test-recipient restriction", async () => {
+  process.env.RESEND_API_KEY = "re_test";
+  process.env.INQUIRY_TO_EMAIL = "  Push2starter@Gmail.com  ";
+  try {
+    const calls = await withFetch((_url, init) => {
+      const { to } = JSON.parse(String(init.body));
+      return to[0] === "push2starter@gmail.com"
+        ? new Response('{"id":"accepted"}', { status: 200 })
+        : new Response("You can only send testing emails to your own email address", { status: 403 });
+    }, async () => {
+      assert.equal(await emailOwner(inquiry), true);
+      assert.equal((await sendTestEmail()).ok, true);
+    });
+    assert.equal(calls.length, 2);
+    assert.equal(siteConfig.business.email, "Push2starter@gmail.com");
+  } finally {
+    delete process.env.INQUIRY_TO_EMAIL;
+    delete process.env.RESEND_API_KEY;
+  }
+});
+
+test("a whitespace-only recipient override falls back to the owner address", () => {
+  process.env.INQUIRY_TO_EMAIL = "   ";
+  try {
+    assert.equal(inquiryRecipient(), "push2starter@gmail.com");
+  } finally {
+    delete process.env.INQUIRY_TO_EMAIL;
+  }
 });
 
 test("a rejection from Resend reports failure rather than throwing", async () => {
@@ -101,7 +131,7 @@ test("diagnostics report a missing key without calling Resend", async () => {
     const report = await deliveryDiagnostics();
     assert.equal(report.resendKeyPresent, false);
     assert.equal(report.resendKeyLooksValid, null);
-    assert.equal(report.recipient, siteConfig.business.email);
+    assert.equal(report.recipient, siteConfig.business.email.toLowerCase());
     assert.equal(report.senderIsSharedTestAddress, true);
   });
   assert.equal(calls.length, 0);
