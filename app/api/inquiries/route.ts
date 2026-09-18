@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site.config";
-import { databaseConfigured, getSql } from "@/lib/db";
 import { clientKey, pruneRateLimits, rateLimit } from "@/lib/rate-limit";
+import { deliverInquiry } from "@/lib/inquiry-delivery";
 
 const allowedFields = new Set(siteConfig.conversion.fields);
 
@@ -68,50 +68,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: `Please include ${errors.join(", ")}.` }, { status: 400 });
   }
 
-  const webhook = process.env.INQUIRY_WEBHOOK_URL;
-  const resendKey = process.env.RESEND_API_KEY;
-  let delivered = false;
+  const { delivered } = await deliverInquiry(inquiry);
 
-  if (databaseConfigured) {
-    const sql = getSql();
-    await sql`
-      INSERT INTO build_inquiries (name, email, phone, service, budget, message)
-      VALUES (
-        ${inquiry.name},
-        ${inquiry.email || null},
-        ${inquiry.phone || null},
-        ${inquiry.service || null},
-        ${inquiry.budget || null},
-        ${inquiry.message}
-      )
-    `;
-    delivered = true;
-  }
-
-  if (webhook) {
-    const response = await fetch(webhook, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ source: siteConfig.business.name, receivedAt: new Date().toISOString(), ...inquiry }),
-    });
-    delivered ||= response.ok;
-  }
-
-  if (resendKey && process.env.INQUIRY_FROM_EMAIL) {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { authorization: `Bearer ${resendKey}`, "content-type": "application/json" },
-      body: JSON.stringify({
-        from: process.env.INQUIRY_FROM_EMAIL,
-        to: [siteConfig.business.email],
-        reply_to: inquiry.email,
-        subject: `New ${siteConfig.conversion.mode} request from ${inquiry.name}`,
-        text: Object.entries(inquiry).map(([key, value]) => `${key}: ${value}`).join("\n"),
-      }),
-    });
-    delivered ||= response.ok;
-  }
-
-  if (!delivered) return NextResponse.json({ error: "Direct delivery is not configured." }, { status: 503 });
+  if (!delivered) return NextResponse.json({ error: "We could not deliver your request." }, { status: 503 });
   return accepted();
 }
