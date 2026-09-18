@@ -16,11 +16,19 @@ test("the request past the limit is rejected with a retry hint", () => {
 });
 
 test("a fresh window opens once the old one expires", () => {
-  rateLimit("expiring", 1, 1);
-  assert.equal(rateLimit("expiring", 1, 1).allowed, false);
-  const later = Date.now() + 10;
-  while (Date.now() < later) { /* wait out the 1ms window */ }
-  assert.equal(rateLimit("expiring", 1, 1).allowed, true);
+  // The clock is injected rather than slept on: a real-time window is a race,
+  // and the version of this test that slept failed roughly one run in four.
+  const start = 1_000_000;
+  assert.equal(rateLimit("expiring", 1, 60_000, start).allowed, true);
+  assert.equal(rateLimit("expiring", 1, 60_000, start + 1).allowed, false);
+  assert.equal(rateLimit("expiring", 1, 60_000, start + 59_999).allowed, false);
+  assert.equal(rateLimit("expiring", 1, 60_000, start + 60_000).allowed, true);
+});
+
+test("the retry hint counts down as the window drains", () => {
+  const start = 2_000_000;
+  rateLimit("draining", 1, 60_000, start);
+  assert.equal(rateLimit("draining", 1, 60_000, start + 10_000).retryAfterSeconds, 50);
 });
 
 test("expired windows are pruned so the map cannot grow without bound", () => {

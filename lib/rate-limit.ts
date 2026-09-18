@@ -10,8 +10,8 @@ type Window = { count: number; resetAt: number };
 
 const windows = new Map<string, Window>();
 
-export function rateLimit(key: string, limit: number, windowMs: number) {
-  const now = Date.now();
+/** `now` is injectable so window expiry can be tested without racing the clock. */
+export function rateLimit(key: string, limit: number, windowMs: number, now = Date.now()) {
   const existing = windows.get(key);
 
   if (!existing || now >= existing.resetAt) {
