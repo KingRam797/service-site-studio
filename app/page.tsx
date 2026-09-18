@@ -3,6 +3,7 @@ import { configToCss, hasDialablePhone, phoneHref } from "@/lib/config";
 import Image from "next/image";
 import InquiryForm from "./components/InquiryForm";
 import Testimonials from "./components/Testimonials";
+import TrackedLink from "./components/TrackedLink";
 import { testimonials } from "@/data/testimonials";
 import PushScrollWorld from "./components/PushScrollWorld";
 import "./brand.css";
@@ -77,7 +78,7 @@ export default function Home() {
           <a href="#faq">Questions</a>
           <a href="/client">Client login</a>
         </nav>
-        <a className="header-action" href="#start">Start a build <span>↗</span></a>
+        <TrackedLink className="header-action" href="#start" event="start_build_click" properties={{ location: "header" }}>Start a build <span>↗</span></TrackedLink>
       </header>
 
       <main id="main">
@@ -88,15 +89,23 @@ export default function Home() {
             <p className="hero-body">{config.hero.body}</p>
             <div className="actions">
               {config.hero.actions.map((action) => (
-                <a className={`button button-${action.kind ?? "secondary"}`} href={action.href} key={action.label}>{action.label}<span aria-hidden="true">↗</span></a>
+                <TrackedLink
+                  className={`button button-${action.kind ?? "secondary"}`}
+                  href={action.href}
+                  key={action.label}
+                  event={action.href === "#services" ? "compare_builds_click" : "start_build_click"}
+                  properties={action.href === "#services" ? undefined : { location: "hero" }}
+                >
+                  {action.label}<span aria-hidden="true">↗</span>
+                </TrackedLink>
               ))}
             </div>
           </div>
           <PushScrollWorld />
-          <a className="brand-terminal" href="#start" aria-label="Start your Push2Start build">
+          <TrackedLink className="brand-terminal" href="#start" aria-label="Start your Push2Start build" event="start_build_click" properties={{ location: "hero_terminal" }}>
             <code><span>$</span> <b>git push</b> origin main<span className="terminal-cursor" aria-hidden="true"> ▌</span></code>
             <span className="terminal-caption">ideas move here <b aria-hidden="true">→</b></span>
-          </a>
+          </TrackedLink>
           <dl className="fact-strip">
             {config.hero.facts.map((fact, index) => <div key={fact.label}><dt>0{index + 1} / {fact.label}</dt><dd>{fact.value}</dd></div>)}
           </dl>
@@ -135,7 +144,7 @@ export default function Home() {
                 <span>0{index + 1}</span>
                 <div className="service-copy"><h3>{service.name}</h3><strong>{service.note}</strong><span>{service.description}</span></div>
                 <div className="service-meta">{service.price && <strong>{service.price}</strong>}{service.duration && <span>{service.duration}</span>}</div>
-                <a href="#start" aria-label={`Ask about ${service.name}`}>Choose <b>↘</b></a>
+                <TrackedLink href="#start" aria-label={`Ask about ${service.name}`} event="tier_select" properties={{ tier: service.name }}>Choose <b>↘</b></TrackedLink>
               </article>
             ))}
           </div>
@@ -206,7 +215,7 @@ export default function Home() {
         <p>{config.footerNote}</p>
         <div className="footer-links">{config.business.email && <a href={`mailto:${config.business.email}`}>{config.business.email}</a>}{hasDialablePhone(config.business.phone) && <a href={phoneHref(config.business.phone)}>{config.business.phone}</a>}<a href="/client">Client login</a>{config.business.socials?.map((social) => <a href={social.href} key={social.label} target="_blank" rel="noreferrer">{social.label}</a>)}<a href="#top" className="back-top">Back to top ↑</a></div>
       </footer>
-      <a className="mobile-action" href="#start">{config.conversion.submitLabel}<span>→</span></a>
+      <TrackedLink className="mobile-action" href="#start" event="start_build_click" properties={{ location: "footer" }}>{config.conversion.submitLabel}<span>→</span></TrackedLink>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     </div>
   );

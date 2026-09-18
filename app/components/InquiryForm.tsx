@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { track } from "@vercel/analytics";
 import type { SiteConfig } from "@/config/types";
 
 const labels = {
@@ -55,6 +56,12 @@ export default function InquiryForm({
       form.reset();
       startedAt.current = Date.now();
       setStatus("sent");
+      // Fired on a confirmed 2xx only, never on click.
+      try {
+        track("inquiry_submit", { service: String(data.service ?? "unspecified") });
+      } catch {
+        // Analytics must never turn a delivered lead into an error state.
+      }
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Your request could not be delivered.");
       setStatus("error");
