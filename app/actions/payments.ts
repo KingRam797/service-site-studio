@@ -23,6 +23,7 @@ export async function createMilestoneCheckout(formData: FormData) {
   const origin = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const session = await getStripe().checkout.sessions.create({
     mode: "payment",
+    integration_identifier: "push2start_checkout_qjrmvtxa",
     customer_email: String(milestone.client_email),
     line_items: [{
       quantity: 1,
@@ -35,7 +36,7 @@ export async function createMilestoneCheckout(formData: FormData) {
     metadata: { projectId: String(milestone.project_id), milestoneId: String(milestone.id), clerkUserId: userId },
     success_url: `${origin}/client/payment-return?status=success&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/client/payment-return?status=cancelled`,
-  });
+  }, { idempotencyKey: `push2start-milestone-${milestone.id}` });
 
   if (!session.url) throw new Error("Stripe did not return a checkout URL.");
   redirect(session.url);
