@@ -1,0 +1,52 @@
+/* Approved Push2Start identity: obsidian, chrome, lime and cyan. */
+:root { color-scheme: dark; }
+body { background: #030506; color: #f0f3f5; }
+.site .branch-mark { background: transparent; border-radius: 0; }
+.branch-mark img { width: 100%; height: auto; }
+.site .brand { font-style: italic; }
+.site .header-action, .site .button-primary { background: var(--accent); color: #030506; border-color: var(--accent); }
+.site .header-action span, .site .button-primary span { color: #030506; }
+.site .hero { min-height: 760px; gap: 2rem; padding-top: 3rem; }
+.site .hero::before { width: 120%; height: 180px; aspect-ratio: auto; left: -10%; right: auto; top: auto; bottom: 100px; border: 0; border-top: 1px solid #00cdf0; border-radius: 50%; box-shadow: 0 -12px 45px -20px #00cdf0; }
+.site .hero h1 { font-size: clamp(3rem, 5.6vw, 6rem); line-height: 1.02; letter-spacing: -.055em; text-transform: none; background: linear-gradient(#fff, #a4b0b6); background-clip: text; color: transparent; }
+.site .hero h1 em { color: var(--accent); font-size: .85em; margin-top: .2em; }
+.brand-art { min-width: 0; align-self: center; position: relative; }
+.brand-art img { width: 100%; height: auto; display: block; mix-blend-mode: screen; }
+.brand-art p { margin: 0; text-align: center; text-transform: uppercase; letter-spacing: .18em; font: .65rem/1.8 ui-monospace, monospace; color: var(--muted); }
+.brand-terminal { position: relative; grid-column: 1/-1; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.3rem 1.5rem; border: 1px solid #52656a; border-radius: 8px; background: #060a0c; }
+.brand-terminal code { font-size: clamp(.8rem, 1.6vw, 1.3rem); }
+.brand-terminal code > span { color: var(--muted); }
+.brand-terminal b { color: var(--accent); }
+.terminal-caption { color: var(--muted); font-size: .8rem; }
+.terminal-caption b { margin-left: 2rem; font-size: 1.6rem; }
+.terminal-cursor { animation: blink 1s steps(1) infinite; }
+.site .manifesto { background: #101518; border-block: 1px solid #283238; color: var(--accent); }
+.site .proof-card, .site .proof-card:nth-child(1), .site .proof-card:nth-child(4) { background: var(--surface); color: var(--ink); }
+.site .project-copy > p, .site .proof-card:nth-child(1) .project-copy > p, .site .proof-card:nth-child(4) .project-copy > p { color: var(--accent-alt); }
+.site .process, .site footer { background: #080d10; color: var(--ink); }
+.site .process .ready-step > span, .site .process .ready-step h3 { color: var(--accent); }
+.site .system-card { background: #29363c; box-shadow: 10px 10px 0 #143a40; transform: none; }
+.site .system-card > div, .site .system-card > div:nth-child(2) { background: var(--surface); color: var(--ink); }
+.site .system-card > div:nth-child(2) strong { color: var(--accent-alt); }
+.site .system-card code { background: #080d10; color: var(--accent); }
+.site .security-rule { background: var(--surface); }
+.site .conversion { background: #10191c; border-top: 1px solid #375158; }
+.site .conversion .eyebrow { color: var(--accent); }
+.site .conversion-intro > p:not(.eyebrow), .site .availability small, .site .form-submit p { color: var(--muted); }
+.site .field input, .site .field select, .site .field textarea { background: #060b0d; color: var(--ink); border-color: #52656a; }
+.site .field select option { color: var(--ink); background: #060b0d; }
+.site .field input:focus, .site .field select:focus, .site .field textarea:focus { background: #10191c; color: var(--ink); border-color: var(--accent-alt); box-shadow: 0 0 0 3px #00cdf025; }
+.site .form-submit button, .site .mobile-action { background: var(--accent); color: #030506; }
+.site .skip-link { background: #030506; color: var(--accent); }
+@media (max-width: 900px) {
+  .site .hero { min-height: auto; padding-top: 3rem; }
+  .brand-art { width: min(100%, 420px); justify-self: center; }
+  .site .hero h1 { font-size: clamp(3rem, 9vw, 5rem); }
+  .site .hero::before { display: none; }
+}
+@media (max-width: 580px) {
+  .brand-terminal { padding: 1rem .8rem; }
+  .terminal-caption { display: none; }
+  .site .hero { gap: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .terminal-cursor { animation: none; } }

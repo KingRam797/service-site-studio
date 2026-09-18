@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site.config";
+import { databaseConfigured, getSql } from "@/lib/db";
 
 const allowedFields = new Set(siteConfig.conversion.fields);
 
@@ -28,6 +29,22 @@ export async function POST(request: Request) {
   const webhook = process.env.INQUIRY_WEBHOOK_URL;
   const resendKey = process.env.RESEND_API_KEY;
   let delivered = false;
+
+  if (databaseConfigured) {
+    const sql = getSql();
+    await sql`
+      INSERT INTO build_inquiries (name, email, phone, service, budget, message)
+      VALUES (
+        ${inquiry.name},
+        ${inquiry.email || null},
+        ${inquiry.phone || null},
+        ${inquiry.service || null},
+        ${inquiry.budget || null},
+        ${inquiry.message}
+      )
+    `;
+    delivered = true;
+  }
 
   if (webhook) {
     const response = await fetch(webhook, {

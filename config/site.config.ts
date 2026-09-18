@@ -21,12 +21,12 @@ export const siteConfig: SiteConfig = {
     businessType: "ProfessionalService",
   },
   theme: {
-    background: "#f4f6fb",
-    surface: "#ffffff",
-    ink: "#0b1220",
-    muted: "#586276",
-    accent: "#ff5c35",
-    accentAlt: "#3157ff",
+    background: "#030506",
+    surface: "#101518",
+    ink: "#f0f3f5",
+    muted: "#a4b0b6",
+    accent: "#ceff00",
+    accentAlt: "#00cdf0",
     displayFont: '"Arial Black", "Aptos Display", sans-serif',
     bodyFont: '"Aptos", "Segoe UI", sans-serif',
     radius: "soft",
@@ -35,8 +35,8 @@ export const siteConfig: SiteConfig = {
   },
   hero: {
     eyebrow: "commit / build / ship",
-    headline: "Your business is ready.",
-    emphasizedLine: "Push it live.",
+    headline: "Commit today.",
+    emphasizedLine: "A brighter tomorrow.",
     body:
       "We turn the way your business actually works into a distinctive site customers can understand, trust, and act on—without a six-month agency process.",
     actions: [

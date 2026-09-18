@@ -7,4 +7,4 @@
 - Use Stripe-hosted Checkout so card data never enters Push2Start code.
 - Use Clerk for client identity and Neon for project state, with graceful setup states when production services are not connected.
 - Provider access is authorization/status based; never accept secret keys or passwords in ordinary forms or messages.
-- Treat the 3D push token as the single signature interaction and keep the rest of the public design disciplined.
+- The supplied black/chrome/lime/cyan brand references supersede the light orange/blue direction. Use the supplied Git-branch symbol and a terminal-style build CTA in the hero; retain the old 3D component unmounted for possible future adaptation.

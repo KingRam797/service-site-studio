@@ -2,16 +2,12 @@ import { siteConfig } from "@/config/site.config";
 import { configToCss } from "@/lib/config";
 import Image from "next/image";
 import InquiryForm from "./components/InquiryForm";
-import PushTokenExperience from "./components/PushTokenExperience";
+import "./brand.css";
 
 function BranchMark({ compact = false }: { compact?: boolean }) {
   return (
     <span className={compact ? "branch-mark branch-mark-compact" : "branch-mark"} aria-hidden="true">
-      <svg viewBox="0 0 48 48" role="img">
-        <path d="M13 10v19c0 6 4 9 10 9h5c5 0 8-3 8-8V18" />
-        <path d="m29 24 7-7 7 7" />
-        <circle cx="13" cy="9" r="4" />
-      </svg>
+      <Image src="/brand/push2start-symbol.jpeg" alt="" width={96} height={96} />
     </span>
   );
 }
@@ -83,7 +79,14 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <PushTokenExperience />
+          <div className="brand-art">
+            <Image src="/brand/push2start-symbol.jpeg" alt="Push2Start silver diamond with a lime-to-cyan Git branch" width={1280} height={1280} priority sizes="(max-width: 900px) 90vw, 45vw" />
+            <p>For creators. For builders. For doers.</p>
+          </div>
+          <a className="brand-terminal" href="#start" aria-label="Start your Push2Start build">
+            <code><span>$</span> <b>git push</b> origin main<span className="terminal-cursor" aria-hidden="true"> ▌</span></code>
+            <span className="terminal-caption">ideas move here <b aria-hidden="true">→</b></span>
+          </a>
           <dl className="fact-strip">
             {config.hero.facts.map((fact, index) => <div key={fact.label}><dt>0{index + 1} / {fact.label}</dt><dd>{fact.value}</dd></div>)}
           </dl>
