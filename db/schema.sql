@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS client_projects (
   progress integer NOT NULL DEFAULT 0 CHECK (progress BETWEEN 0 AND 100),
   target_date date,
   next_action text NOT NULL DEFAULT 'Complete the materials checklist.',
+  stripe_customer_id text,
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
@@ -23,7 +24,27 @@ CREATE TABLE IF NOT EXISTS payment_milestones (
   status text NOT NULL DEFAULT 'upcoming' CHECK (status IN ('upcoming', 'due', 'paid')),
   sort_order integer NOT NULL,
   stripe_session_id text UNIQUE,
+  stripe_payment_intent_id text,
   paid_at timestamptz
+);
+
+CREATE TABLE IF NOT EXISTS build_inquiries (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  email text,
+  phone text,
+  service text,
+  budget text,
+  message text NOT NULL,
+  source text NOT NULL DEFAULT 'push2Start',
+  status text NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'reviewing', 'accepted', 'declined')),
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS stripe_webhook_events (
+  event_id text PRIMARY KEY,
+  event_type text NOT NULL,
+  processed_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS project_materials (
@@ -53,3 +74,7 @@ CREATE TABLE IF NOT EXISTS project_updates (
 CREATE INDEX IF NOT EXISTS client_projects_clerk_user_idx ON client_projects(clerk_user_id);
 CREATE INDEX IF NOT EXISTS client_projects_email_idx ON client_projects(lower(client_email));
 CREATE INDEX IF NOT EXISTS payment_milestones_project_idx ON payment_milestones(project_id, sort_order);
+CREATE INDEX IF NOT EXISTS build_inquiries_created_idx ON build_inquiries(created_at DESC);
+
+ALTER TABLE client_projects ADD COLUMN IF NOT EXISTS stripe_customer_id text;
+ALTER TABLE payment_milestones ADD COLUMN IF NOT EXISTS stripe_payment_intent_id text;
