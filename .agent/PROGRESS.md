@@ -3,9 +3,11 @@
 ## Blender scroll build
 
 - Built the approved diamond/branch symbol with portable Blender 4.5.3 LTS; editable source and deterministic script are in `assets/push-symbol/`.
-- Fresh GLB import passed: 8 meshes, 11,060 triangles, 296,936 bytes. Six diagnostic views are included in the review sheet.
+- Fresh GLB import passed: 8 meshes, 11,060 triangles, 296,932 bytes. Six diagnostic views are included in the review sheet.
 - Mounted `PushScrollWorld`: scroll-driven 3D rotation, lime/cyan paths into portfolio cards, pause control, reduced-motion/data-saving poster, and WebGL fallback. No continuous idle render loop.
-- Local browser execution is blocked by the environment's socket permissions. Live browser verification follows the Vercel deployment; do not claim a local browser pass.
+- Lint, 3 tests, and the production build passed. Main commit `b73e145` deployed successfully on Vercel; the public GLB returns 200 and its SHA-256 matches the checked export.
+- Live browser verification confirmed the branded hero fallback, lime/cyan paths reaching the first two portfolio cards, changing scroll offsets, and pause/resume state. Pausing preserved path offsets while navigating to Work.
+- Local browser execution is blocked by socket permissions; the cloud test browser disables WebGL. The 3D canvas rendering, mobile viewport, and reduced-motion emulation were not visually verified. The actual WebGL-failure fallback was verified.
 
 ## Brand-reference pass
 
