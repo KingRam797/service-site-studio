@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { emailOwner } from "../lib/inquiry-delivery.ts";
+import { emailOwner, inquiryRecipient } from "../lib/inquiry-delivery.ts";
 import { siteConfig } from "../config/site.config.ts";
 
 const inquiry = { name: "Test", email: "lead@example.com", message: "A build request." };
@@ -59,6 +59,23 @@ test("INQUIRY_FROM_EMAIL overrides the sender once a domain is verified", async 
   });
   assert.equal(calls[0].body.from, "hello@push2start.com");
   delete process.env.INQUIRY_FROM_EMAIL;
+});
+
+test("INQUIRY_TO_EMAIL redirects the notification without changing the published address", async () => {
+  process.env.RESEND_API_KEY = "re_test";
+  process.env.INQUIRY_TO_EMAIL = "someone.else@example.com";
+  const calls = await withFetch(() => new Response("{}", { status: 200 }), async () => {
+    await emailOwner(inquiry);
+  });
+  assert.deepEqual(calls[0].body.to, ["someone.else@example.com"]);
+  // The site still publishes the business address; only delivery moved.
+  assert.equal(siteConfig.business.email, "Push2starter@gmail.com");
+  delete process.env.INQUIRY_TO_EMAIL;
+});
+
+test("the recipient falls back to the published business address", () => {
+  delete process.env.INQUIRY_TO_EMAIL;
+  assert.equal(inquiryRecipient(), siteConfig.business.email);
 });
 
 test("a rejection from Resend reports failure rather than throwing", async () => {

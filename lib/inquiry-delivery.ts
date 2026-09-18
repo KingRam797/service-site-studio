@@ -52,13 +52,24 @@ export async function postWebhook(inquiry: Inquiry) {
 }
 
 /**
- * Sends the request to the business address in `siteConfig`. Only
- * RESEND_API_KEY is required; INQUIRY_FROM_EMAIL overrides the sender once a
- * domain is verified in Resend.
+ * Sends the request to the owner. Only RESEND_API_KEY is required.
+ *
+ * Recipient defaults to the public contact address in `siteConfig`, which is
+ * usually right. INQUIRY_TO_EMAIL redirects notifications elsewhere without
+ * changing the address the site publishes — needed while sending through
+ * Resend's shared test sender, which only delivers to the address the Resend
+ * account itself was registered with.
+ *
+ * INQUIRY_FROM_EMAIL overrides the sender once a domain is verified.
  */
+export function inquiryRecipient() {
+  return process.env.INQUIRY_TO_EMAIL || siteConfig.business.email;
+}
+
 export async function emailOwner(inquiry: Inquiry) {
   const resendKey = process.env.RESEND_API_KEY;
-  if (!resendKey || !siteConfig.business.email) return false;
+  const recipient = inquiryRecipient();
+  if (!resendKey || !recipient) return false;
 
   try {
     const response = await fetch("https://api.resend.com/emails", {
@@ -66,7 +77,7 @@ export async function emailOwner(inquiry: Inquiry) {
       headers: { authorization: `Bearer ${resendKey}`, "content-type": "application/json" },
       body: JSON.stringify({
         from: process.env.INQUIRY_FROM_EMAIL || DEFAULT_FROM_EMAIL,
-        to: [siteConfig.business.email],
+        to: [recipient],
         reply_to: inquiry.email,
         subject: `New ${siteConfig.conversion.mode} request from ${inquiry.name}`,
         text: Object.entries(inquiry).map(([key, value]) => `${key}: ${value}`).join("\n"),
@@ -105,7 +116,7 @@ export async function deliverInquiry(inquiry: Inquiry) {
   // it arrived, so say so loudly in the function logs.
   if (!emailed && (stored || webhooked)) {
     console.error(
-      `[inquiry] Captured but NOT emailed to ${siteConfig.business.email}. ` +
+      `[inquiry] Captured but NOT emailed to ${inquiryRecipient()}. ` +
         `Set RESEND_API_KEY in the Vercel project to enable direct delivery.`,
     );
   }
