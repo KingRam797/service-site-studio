@@ -197,6 +197,18 @@ button, input, textarea, select { font: inherit; }
 .form-note a { text-decoration: underline; }
 .form-note-error { color: #ffd9d0; }
 .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.legal { max-width: 760px; }
+.legal h1 { margin: 0 0 1.5rem; font-family: var(--display); font-weight: 900; font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+.legal h2 { margin: 3rem 0 1rem; font-size: 1.15rem; font-weight: 850; }
+.legal p, .legal li { color: var(--muted); line-height: 1.75; }
+.legal .legal-lede { font-size: 1.08rem; }
+.legal ul { padding-left: 1.2rem; display: grid; gap: .6rem; }
+.legal li strong, .legal p strong { color: var(--ink); }
+.legal a { color: var(--accent-alt); text-decoration: underline; text-underline-offset: 3px; }
+.legal time { color: inherit; }
+.footer-copy { display: grid; gap: .6rem; }
+.footer-legal { font-size: .78rem; }
+.footer-legal a { text-decoration: underline; text-underline-offset: 3px; }
 footer { min-height: 220px; padding: 3rem max(1.25rem, calc((100vw - 1320px)/2)); display: grid; grid-template-columns: 1fr 1fr auto; align-items: end; gap: 2rem; background: var(--ink); color: white; }
 .brand-footer { font-size: clamp(1.7rem, 3vw, 3rem); }
 .brand-footer .branch-mark { background: var(--accent); }

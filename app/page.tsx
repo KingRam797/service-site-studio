@@ -1,29 +1,13 @@
 import { siteConfig } from "@/config/site.config";
 import { configToCss, hasDialablePhone, phoneHref } from "@/lib/config";
 import Image from "next/image";
+import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import InquiryForm from "./components/InquiryForm";
 import Testimonials from "./components/Testimonials";
 import TrackedLink from "./components/TrackedLink";
 import { testimonials } from "@/data/testimonials";
 import PushScrollWorld from "./components/PushScrollWorld";
 import "./brand.css";
-
-function BranchMark({ compact = false }: { compact?: boolean }) {
-  return (
-    <span className={compact ? "branch-mark branch-mark-compact" : "branch-mark"} aria-hidden="true">
-      <Image src="/brand/push2start-symbol.jpeg" alt="" width={96} height={96} />
-    </span>
-  );
-}
-
-function Wordmark({ footer = false }: { footer?: boolean }) {
-  return (
-    <span className={footer ? "brand brand-footer" : "brand"}>
-      <BranchMark compact={!footer} />
-      <span><strong>push</strong><b>2</b><strong>Start</strong></span>
-    </span>
-  );
-}
 
 function ProofCard({ item, index }: { item: (typeof siteConfig.proof.items)[number]; index: number }) {
   const content = (
@@ -69,17 +53,7 @@ export default function Home() {
   return (
     <div className="site" style={configToCss(config)}>
       <a className="skip-link" href="#main">Skip to main content</a>
-      <header className="header" id="top">
-        <a className="wordmark" href="#top" aria-label="push2Start home"><Wordmark /></a>
-        <nav aria-label="Primary navigation">
-          <a href="#proof">Work</a>
-          <a href="#services">Builds</a>
-          <a href="#process">Process</a>
-          <a href="#faq">Questions</a>
-          <a href="/client">Client login</a>
-        </nav>
-        <TrackedLink className="header-action" href="#start" event="start_build_click" properties={{ location: "header" }}>Start a build <span>↗</span></TrackedLink>
-      </header>
+      <SiteHeader home />
 
       <main id="main">
         <section className="hero" aria-labelledby="hero-title">
@@ -210,11 +184,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer>
-        <a className="footer-name" href="#top"><Wordmark footer /></a>
-        <p>{config.footerNote}</p>
-        <div className="footer-links">{config.business.email && <a href={`mailto:${config.business.email}`}>{config.business.email}</a>}{hasDialablePhone(config.business.phone) && <a href={phoneHref(config.business.phone)}>{config.business.phone}</a>}<a href="/client">Client login</a>{config.business.socials?.map((social) => <a href={social.href} key={social.label} target="_blank" rel="noreferrer">{social.label}</a>)}<a href="#top" className="back-top">Back to top ↑</a></div>
-      </footer>
+      <SiteFooter home />
       <TrackedLink className="mobile-action" href="#start" event="start_build_click" properties={{ location: "footer" }}>{config.conversion.submitLabel}<span>→</span></TrackedLink>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     </div>
