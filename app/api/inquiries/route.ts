@@ -1,11 +1,32 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site.config";
 import { databaseConfigured, getSql } from "@/lib/db";
+import { clientKey, pruneRateLimits, rateLimit } from "@/lib/rate-limit";
 
 const allowedFields = new Set(siteConfig.conversion.fields);
 
+/** Hidden field: a real person never fills it, most naive bots do. */
+const HONEYPOT_FIELD = "company";
+/** A human cannot read the form and complete it faster than this. */
+const MIN_SUBMIT_MS = 3000;
+const MAX_LIMIT = 5;
+const WINDOW_MS = 10 * 60 * 1000;
+
+const MESSAGE_MIN = 20;
+const MESSAGE_MAX = 4000;
+const NAME_MAX = 120;
+
+// Deliberately permissive: one @, a dot in the domain, no whitespace. Stricter
+// patterns reject valid addresses far more often than they catch bad ones.
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function clean(value: unknown, max = 2000) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
+/** Accepted silently so a bot cannot tell rejection from success. */
+function accepted() {
+  return NextResponse.json({ ok: true });
 }
 
 export async function POST(request: Request) {
@@ -16,14 +37,35 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Send a valid request." }, { status: 400 });
   }
 
+  pruneRateLimits();
+  const limit = rateLimit(clientKey(request), MAX_LIMIT, WINDOW_MS);
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again shortly, or email us directly." },
+      { status: 429, headers: { "retry-after": String(limit.retryAfterSeconds) } },
+    );
+  }
+
+  if (clean(body[HONEYPOT_FIELD])) return accepted();
+
+  const startedAt = Number(body.startedAt);
+  if (Number.isFinite(startedAt) && Date.now() - startedAt < MIN_SUBMIT_MS) return accepted();
+
   const inquiry = Object.fromEntries(
     Object.entries(body)
       .filter(([key]) => allowedFields.has(key as never))
-      .map(([key, value]) => [key, clean(value)]),
+      .map(([key, value]) => [key, clean(value, key === "message" ? MESSAGE_MAX : NAME_MAX)]),
   );
 
-  if (!inquiry.name || !inquiry.message || (!inquiry.email && !inquiry.phone)) {
-    return NextResponse.json({ error: "Name, message, and contact information are required." }, { status: 400 });
+  const errors: string[] = [];
+  if (!inquiry.name) errors.push("a name");
+  if (!inquiry.email || !emailPattern.test(inquiry.email)) errors.push("a valid email address");
+  if (!inquiry.message || inquiry.message.length < MESSAGE_MIN) {
+    errors.push(`a message of at least ${MESSAGE_MIN} characters`);
+  }
+
+  if (errors.length > 0) {
+    return NextResponse.json({ error: `Please include ${errors.join(", ")}.` }, { status: 400 });
   }
 
   const webhook = process.env.INQUIRY_WEBHOOK_URL;
@@ -62,6 +104,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         from: process.env.INQUIRY_FROM_EMAIL,
         to: [siteConfig.business.email],
+        reply_to: inquiry.email,
         subject: `New ${siteConfig.conversion.mode} request from ${inquiry.name}`,
         text: Object.entries(inquiry).map(([key, value]) => `${key}: ${value}`).join("\n"),
       }),
@@ -70,5 +113,5 @@ export async function POST(request: Request) {
   }
 
   if (!delivered) return NextResponse.json({ error: "Direct delivery is not configured." }, { status: 503 });
-  return NextResponse.json({ ok: true });
+  return accepted();
 }

@@ -51,6 +51,8 @@ export type ConversionConfig = {
   intro: string;
   submitLabel: string;
   successMessage: string;
+  /** e.g. "within one business day". Unset renders no reply-window claim. */
+  replyWindow?: string;
   fallback: "email" | "sms";
   depositLink?: string;
   externalBookingUrl?: string;

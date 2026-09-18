@@ -1,5 +1,5 @@
 import { siteConfig } from "@/config/site.config";
-import { configToCss } from "@/lib/config";
+import { configToCss, hasDialablePhone, phoneHref } from "@/lib/config";
 import Image from "next/image";
 import InquiryForm from "./components/InquiryForm";
 import Testimonials from "./components/Testimonials";
@@ -185,6 +185,17 @@ export default function Home() {
             <h2>{config.conversion.heading}</h2>
             <p>{config.conversion.intro}</p>
             <div className="availability"><span /><div><strong>{config.business.availability}</strong><small>{config.business.location}</small></div></div>
+            <ul className="contact-paths">
+              {config.business.email && (
+                <li><span>Email</span><a href={`mailto:${config.business.email}`}>{config.business.email}</a></li>
+              )}
+              <li>
+                <span>Phone / text</span>
+                {hasDialablePhone(config.business.phone)
+                  ? <a href={phoneHref(config.business.phone)}>{config.business.phone}</a>
+                  : <em>{config.business.phone}</em>}
+              </li>
+            </ul>
           </div>
           <InquiryForm config={config} />
         </section>
@@ -193,7 +204,7 @@ export default function Home() {
       <footer>
         <a className="footer-name" href="#top"><Wordmark footer /></a>
         <p>{config.footerNote}</p>
-        <div className="footer-links"><a href="/client">Client login</a>{config.business.socials?.map((social) => <a href={social.href} key={social.label} target="_blank" rel="noreferrer">{social.label}</a>)}<a href="#top" className="back-top">Back to top ↑</a></div>
+        <div className="footer-links">{config.business.email && <a href={`mailto:${config.business.email}`}>{config.business.email}</a>}{hasDialablePhone(config.business.phone) && <a href={phoneHref(config.business.phone)}>{config.business.phone}</a>}<a href="/client">Client login</a>{config.business.socials?.map((social) => <a href={social.href} key={social.label} target="_blank" rel="noreferrer">{social.label}</a>)}<a href="#top" className="back-top">Back to top ↑</a></div>
       </footer>
       <a className="mobile-action" href="#start">{config.conversion.submitLabel}<span>→</span></a>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />

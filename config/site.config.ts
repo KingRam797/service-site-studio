@@ -5,7 +5,7 @@ export const siteConfig: SiteConfig = {
     name: "push2Start",
     owner: "Victor Emerson",
     location: "Detroit, Michigan · serving businesses remotely",
-    phone: "",
+    phone: "TODO_FROM_KING",
     email: "Push2starter@gmail.com",
     tagline: "Expert, enterprise-grade sites in 2 weeks or less.",
     shortDescription:
