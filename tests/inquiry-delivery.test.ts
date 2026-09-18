@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { deliveryDiagnostics, emailOwner, inquiryRecipient } from "../lib/inquiry-delivery.ts";
+import { deliveryDiagnostics, emailOwner, inquiryRecipient, sendTestEmail } from "../lib/inquiry-delivery.ts";
 import { siteConfig } from "../config/site.config.ts";
 
 const inquiry = { name: "Test", email: "lead@example.com", message: "A build request." };
@@ -127,4 +127,26 @@ test("diagnostics confirm a live key", async () => {
     assert.equal(report.resendAuthStatus, 200);
   });
   delete process.env.RESEND_API_KEY;
+});
+
+test("the test send reports Resend's verbatim refusal", async () => {
+  process.env.RESEND_API_KEY = "re_secret_value";
+  const refusal = "You can only send testing emails to your own email address";
+  await withFetch(() => new Response(refusal, { status: 403 }), async () => {
+    const result = await sendTestEmail();
+    assert.equal(result.attempted, true);
+    assert.equal(result.ok, false);
+    assert.equal(result.status, 403);
+    assert.match(String(result.body), /only send testing emails/);
+    assert.ok(!JSON.stringify(result).includes("re_secret_value"));
+  });
+  delete process.env.RESEND_API_KEY;
+});
+
+test("the test send does not fire without a key", async () => {
+  delete process.env.RESEND_API_KEY;
+  const calls = await withFetch(() => new Response("{}", { status: 200 }), async () => {
+    assert.equal((await sendTestEmail()).attempted, false);
+  });
+  assert.equal(calls.length, 0);
 });
