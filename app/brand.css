@@ -1,4 +1,17 @@
 /* Approved Push2Start identity: obsidian, chrome, lime and cyan. */
+#main { position: relative; isolation: isolate; }
+.push-paths { position: absolute; top: 0; left: 0; z-index: 2; pointer-events: none; overflow: visible; opacity: .72; filter: drop-shadow(0 0 5px #00cdf060); }
+.hero-copy, .brand-terminal, .fact-strip, .section-heading { position: relative; z-index: 3; }
+.push-world { position: relative; min-width: 0; width: 100%; aspect-ratio: 1; align-self: center; z-index: 3; }
+.push-world-poster { display: block; width: 100%; height: auto; mix-blend-mode: screen; }
+.push-world canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
+.push-world[data-ready="true"] canvas { opacity: 1; }
+.push-world[data-ready="true"] .push-world-poster { opacity: 0; }
+.push-world-caption { position: absolute; bottom: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--muted); font: .65rem/1.5 ui-monospace, monospace; }
+.push-world-caption button { color: var(--ink); border: 1px solid #52656a; border-radius: 20px; padding: .65rem; background: #101518; cursor: pointer; }
+.site .proof-card { position: relative; z-index: 3; box-shadow: 0 0 calc(var(--arrival, 0) * 22px) #00cdf030; }
+@media (max-width:900px) { .push-world { max-width: 480px; justify-self: center; } }
+@media (prefers-reduced-motion:reduce) { .push-world canvas { display:none; } .push-world[data-ready="true"] .push-world-poster { opacity:1; } .push-world-caption button { display:none; } }
 :root { color-scheme: dark; }
 body { background: #030506; color: #f0f3f5; }
 .site .branch-mark { background: transparent; border-radius: 0; }

@@ -7,4 +7,5 @@
 - Use Stripe-hosted Checkout so card data never enters Push2Start code.
 - Use Clerk for client identity and Neon for project state, with graceful setup states when production services are not connected.
 - Provider access is authorization/status based; never accept secret keys or passwords in ordinary forms or messages.
-- The supplied black/chrome/lime/cyan brand references supersede the light orange/blue direction. Use the supplied Git-branch symbol and a terminal-style build CTA in the hero; retain the old 3D component unmounted for possible future adaptation.
+- The supplied black/chrome/lime/cyan brand references supersede the light orange/blue direction. Use the supplied Git-branch symbol and a terminal-style build CTA in the hero.
+- Rebuild the approved symbol with deterministic Blender geometry and use a lightweight GLB with native scroll-driven Three.js rendering. Keep the supplied image as a fallback; use measured SVG paths to connect the model to actual portfolio cards. No Higgsfield credits are required.

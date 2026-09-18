@@ -1,0 +1,9 @@
+{
+  "blender": "4.5.3 LTS",
+  "meshes": 8,
+  "triangles": 11060,
+  "bytes": 296932,
+  "required_names_preserved": true,
+  "finite_coordinates": true,
+  "fresh_import": true
+}

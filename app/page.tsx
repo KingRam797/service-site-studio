@@ -2,6 +2,7 @@ import { siteConfig } from "@/config/site.config";
 import { configToCss } from "@/lib/config";
 import Image from "next/image";
 import InquiryForm from "./components/InquiryForm";
+import PushScrollWorld from "./components/PushScrollWorld";
 import "./brand.css";
 
 function BranchMark({ compact = false }: { compact?: boolean }) {
@@ -79,10 +80,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="brand-art">
-            <Image src="/brand/push2start-symbol.jpeg" alt="Push2Start silver diamond with a lime-to-cyan Git branch" width={1280} height={1280} priority sizes="(max-width: 900px) 90vw, 45vw" />
-            <p>For creators. For builders. For doers.</p>
-          </div>
+          <PushScrollWorld />
           <a className="brand-terminal" href="#start" aria-label="Start your Push2Start build">
             <code><span>$</span> <b>git push</b> origin main<span className="terminal-cursor" aria-hidden="true"> ▌</span></code>
             <span className="terminal-caption">ideas move here <b aria-hidden="true">→</b></span>

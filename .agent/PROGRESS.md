@@ -1,5 +1,12 @@
 # Progress
 
+## Blender scroll build
+
+- Built the approved diamond/branch symbol with portable Blender 4.5.3 LTS; editable source and deterministic script are in `assets/push-symbol/`.
+- Fresh GLB import passed: 8 meshes, 11,060 triangles, 296,936 bytes. Six diagnostic views are included in the review sheet.
+- Mounted `PushScrollWorld`: scroll-driven 3D rotation, lime/cyan paths into portfolio cards, pause control, reduced-motion/data-saving poster, and WebGL fallback. No continuous idle render loop.
+- Local browser execution is blocked by the environment's socket permissions. Live browser verification follows the Vercel deployment; do not claim a local browser pass.
+
 ## Brand-reference pass
 
 - User confirmed `KingRam797/service-site-studio` and supplied black/chrome/lime/cyan logo references.
