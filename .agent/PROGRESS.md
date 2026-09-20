@@ -1,5 +1,14 @@
 # Progress
 
+## Launch agreement pass (2026-09-20)
+
+- Corrected NoKissing portfolio destination to verified public https://no-kissing.vercel.app.
+- Aligned public timelines to 10–14 calendar days from READY_TO_BUILD.
+- Added versioned agreement PDF from existing terms, documentation-first workspace, required server-validated consent for checkout/materials, project acceptance records, and checkout PDF link. Materials remain an email handoff, not uploads.
+- Build, lint, 33 tests passed. Live payment/acceptance flow needs configured Clerk/Neon/Stripe and a client project; not exercised against live payments.
+- Inquiry recipient code default remains push2starter@gmail.com. Auto-review blocked live diagnostics over potential inquiry-data exposure; no delivery settings changed.
+- Existing agreement has not had attorney review. Preserve dated PDF versions for accepted projects.
+
 ## Resend recipient repair (2026-09-18)
 
 - Production authenticates with Resend successfully (200); failed inquiry send returned 403 because `Push2starter@gmail.com` did not match the lowercase account recipient. Resend's successful dashboard test used `push2starter@gmail.com`; no sending domains are configured.

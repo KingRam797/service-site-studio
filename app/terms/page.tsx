@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site.config";
 import { configToCss } from "@/lib/config";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import "../brand.css";
+import { AGREEMENT_PDF } from "@/lib/agreement";
 
 export const metadata: Metadata = {
   title: "Terms of Service — push2Start",
@@ -24,8 +25,10 @@ export default function Terms() {
         <p className="legal-lede">
           Plain language, because a term you cannot read is a term you cannot rely on. These terms
           apply to every build unless a signed proposal says otherwise in writing. Last updated{" "}
-          <time dateTime="2026-09-18">September 18, 2026</time>.
+          <time dateTime="2026-09-20">September 20, 2026</time>.
         </p>
+        <p><a href={AGREEMENT_PDF}>Download this build agreement as a PDF</a></p>
+        <p>Before paying or proceeding to materials, you must explicitly accept these terms and the agreed project scope in your client workspace. We record the agreement version, account, project, and acceptance time. A general inquiry does not accept a paid build. You may save the PDF before accepting.</p>
 
         <h2>1. Who these terms are between</h2>
         <p>
@@ -75,7 +78,7 @@ export default function Terms() {
           named decision-maker is available to respond.
         </p>
         <p>
-          We confirm READY_TO_BUILD in writing. The stated production window runs from that
+          We confirm READY_TO_BUILD in writing. Production takes 10–14 calendar days from that
           confirmation. This protects the deadline on both sides — there is no invisible countdown
           running while content or decisions are still missing.
         </p>
@@ -122,7 +125,7 @@ export default function Terms() {
 
         <h2>8. Ownership and intellectual property</h2>
         <p>
-          You own your content, your brand, and your data at all times. On final payment, ownership of
+          You own your content, your brand, and your data at all times. You confirm you have permission to supply the materials and authorize us to use them only to deliver the agreed project. On final payment, ownership of
           the site produced for you — its design, its copy as delivered, and its project-specific code
           — transfers to you, along with the accounts and access needed to run it.
         </p>
@@ -169,7 +172,7 @@ export default function Terms() {
         <h2>12. Changes and contact</h2>
         <p>
           We may update these terms for future projects. The version in force for your build is the one
-          published when your project reached READY_TO_BUILD. Questions go to{" "}
+          you explicitly accepted before checkout or materials submission. Later changes require a new agreement; they do not automatically replace your accepted terms. Questions go to{" "}
           <a href={`mailto:${config.business.email}`}>{config.business.email}</a>.
         </p>
       </main>

@@ -8,7 +8,7 @@ export const siteConfig: SiteConfig = {
     location: "Detroit, Michigan · serving businesses remotely",
     phone: "586-224-2150",
     email: "Push2starter@gmail.com",
-    tagline: "Expert, enterprise-grade sites in 2 weeks or less.",
+    tagline: "Expert, enterprise-grade sites in 10–14 days.",
     shortDescription:
       "Distinctive business websites that connect brand, customer action, and the way the work actually gets done.",
     availability: "Now reviewing launch requests",
@@ -18,7 +18,7 @@ export const siteConfig: SiteConfig = {
   seo: {
     title: "push2Start — Business websites built to launch",
     description:
-      "Distinctive, operations-ready business websites delivered through a clear two-week production system.",
+      "Distinctive, operations-ready business websites delivered in 10–14 calendar days from READY_TO_BUILD.",
     businessType: "ProfessionalService",
   },
   theme: {
@@ -45,7 +45,7 @@ export const siteConfig: SiteConfig = {
       { label: "Compare the builds", href: "#services", kind: "secondary" },
     ],
     facts: [
-      { label: "Production window", value: "2 weeks or less" },
+      { label: "Production window", value: "10–14 calendar days" },
       { label: "Build begins", value: "At READY_TO_BUILD" },
       { label: "Payment rhythm", value: "50 / 25 / 25" },
     ],
@@ -79,7 +79,7 @@ export const siteConfig: SiteConfig = {
         category: "Artist platform · music and booking",
         description: "A chrome-and-amber artist world bringing music, visual identity, social discovery, and booking into one cohesive experience.",
         result: "An original identity built to travel",
-        href: "https://nokissing-some-feelings-travel.khiahri734.chatgpt.site",
+        href: "https://no-kissing.vercel.app",
         image: "/work/nokissing.webp",
         imageAlt: "NoKissing chrome prohibition-lips emblem with an airplane crossing through it",
       },
@@ -105,7 +105,7 @@ export const siteConfig: SiteConfig = {
         slug: "proof-page",
         description: "A high-impact single page for one clear offer: positioning, services, real work, contact routing, essential search setup, and launch.",
         price: "$499",
-        duration: "5–7 business days",
+        duration: "10–14 calendar days",
         note: "Great in a rush. Best when done right. Better in public.",
       },
       {
@@ -113,7 +113,7 @@ export const siteConfig: SiteConfig = {
         slug: "booking-ready",
         description: "A build that takes real requests: custom intake, policies, richer proof, conversion tracking, and an owner-ready handoff.",
         price: "$999",
-        duration: "7–10 business days",
+        duration: "10–14 calendar days",
         note: "Your Build. Your Brand. Your Kind.",
       },
       {
@@ -121,7 +121,7 @@ export const siteConfig: SiteConfig = {
         slug: "operations-site",
         description: "A site that runs the work: scoped payments, capacity rules, data-backed requests, notifications, and custom workflow logic.",
         price: "$1,799+",
-        duration: "10–15 business days",
+        duration: "10–14 calendar days",
         note: "You Launch. We Land.",
       },
     ],
@@ -140,7 +140,7 @@ export const siteConfig: SiteConfig = {
       "The invisible foundation—responsive behavior, accessibility, forms, metadata, deployment checks, and handoff—should be repeatable. The part customers see should belong to one business alone. That is how we move quickly without making every client look the same.",
   },
   faqs: [
-    { question: "Does the two-week clock start when I pay?", answer: "Not by itself. Production begins at READY_TO_BUILD: the opening 50% is handled, required materials are gathered, and one decision-maker is ready to respond." },
+    { question: "When does the 10–14-day window start?", answer: "Production takes 10–14 calendar days from our written READY_TO_BUILD confirmation: the opening 50% is handled, required materials are gathered, and one decision-maker is ready to respond. Delays in materials or approvals pause the window." },
     { question: "What does the 50 / 25 / 25 structure mean?", answer: "50% reserves the production window, 25% follows approval of the visual direction and working primary page, and the final 25% is due before production launch and transfer." },
     { question: "Will my site look like the other builds?", answer: "No. The operating foundation is reused; the typography, palette, composition, image rhythm, voice, and signature interaction are directed for your business." },
     { question: "Can you connect booking, payments, or store tools?", answer: "Yes. Booking, deposits, payments, availability, capacity, and fulfillment logic are scoped into Booking Ready or the Operations Site based on what the workflow needs to enforce." },

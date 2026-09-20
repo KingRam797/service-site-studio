@@ -7,6 +7,9 @@ import { clerkConfigured } from "@/lib/auth";
 import { databaseConfigured } from "@/lib/db";
 import { getClientWorkspace } from "@/lib/client-workspace";
 import { stripeConfigured } from "@/lib/stripe";
+import AgreementAcceptance from "@/app/components/AgreementAcceptance";
+import { acceptAgreementForMaterials } from "@/app/actions/materials";
+import { AGREEMENT_PDF } from "@/lib/agreement";
 
 function money(cents: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
@@ -63,6 +66,14 @@ export default async function ClientPage() {
         </div>
       </section>
 
+      <section className="workspace-panel" aria-labelledby="agreement-title">
+        <p className="workspace-kicker">01 / BUILD DOCUMENTATION</p>
+        <h2 id="agreement-title">Read your agreement before paying or sharing materials.</h2>
+        <p>The opening deposit is 50% of your agreed project price, followed by 25% at direction approval and 25% before launch. Production takes 10–14 calendar days from written READY_TO_BUILD confirmation; client delays pause the clock.</p>
+        <p>You retain ownership of your materials. Review scope, revisions, refunds, and handoff terms before continuing.</p>
+        <p><Link href="/terms" target="_blank">Read the full agreement ↗</Link> · <a href={AGREEMENT_PDF} target="_blank" rel="noopener noreferrer">Download the agreement PDF</a></p>
+      </section>
+
       <section className="workspace-grid">
         <article className="workspace-panel workspace-payments">
           <header><div><span>PAYMENTS</span><h2>50 / 25 / 25</h2></div><small>{stripeConfigured ? "Stripe secured" : "Stripe setup pending"}</small></header>
@@ -73,7 +84,7 @@ export default async function ClientPage() {
                 <div><strong>{milestone.label}</strong><span>{milestone.status === "paid" && milestone.paidAt ? `Paid ${new Date(milestone.paidAt).toLocaleDateString()}` : milestone.status.replace("_", " ")}</span></div>
                 <b>{money(milestone.amountCents)}</b>
                 {milestone.status === "due" && stripeConfigured && (
-                  <form action={createMilestoneCheckout}><input type="hidden" name="milestoneId" value={milestone.id} /><button type="submit">Pay securely ↗</button></form>
+                  <form action={createMilestoneCheckout}><input type="hidden" name="milestoneId" value={milestone.id} /><AgreementAcceptance /><button type="submit">{milestone.percent === 50 ? "Pay 50% deposit" : `Pay ${milestone.percent}% milestone`} ↗</button></form>
                 )}
               </div>
             ))}
@@ -83,7 +94,7 @@ export default async function ClientPage() {
         <article className="workspace-panel workspace-materials">
           <header><div><span>MATERIALS</span><h2>{received}/{workspace.materials.length} received</h2></div></header>
           <ul>{workspace.materials.map((item) => <li key={item.label}><i className={`status-${item.status}`} /> <span>{item.label}</span><b>{item.status}</b></li>)}</ul>
-          <a href="mailto:Push2starter@gmail.com?subject=Push2Start%20project%20materials">Send materials securely ↗</a>
+          <form action={acceptAgreementForMaterials}><AgreementAcceptance /><button type="submit">Continue to materials ↗</button></form>
         </article>
 
         <article className="workspace-panel workspace-connections">
