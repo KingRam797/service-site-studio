@@ -7,6 +7,7 @@ import Testimonials from "./components/Testimonials";
 import TrackedLink from "./components/TrackedLink";
 import { faqPageSchema, jsonLdProps } from "@/lib/structured-data";
 import PushScrollWorld from "./components/PushScrollWorld";
+import CinematicBackdrop from "./components/CinematicBackdrop";
 import "./brand.css";
 
 function ProofCard({ item, index }: { item: (typeof siteConfig.proof.items)[number]; index: number }) {
@@ -82,7 +83,8 @@ export default function Home() {
 
         <Testimonials />
 
-        <section className="services section" id="services">
+        <section className="services section cinematic-section" id="services">
+          <CinematicBackdrop src="https://d8j0ntlcm91z4.cloudfront.net/user_3Bnh4rFMZnk5sksDeNoJN4Y4Mee/hf_20260924_215721_a20048a9-001b-41b7-a51a-747c07a75167.mp4" className="packages-film" />
           <div className="section-heading services-heading">
             <p className="eyebrow">{config.services.eyebrow}</p>
             <h2>{config.services.heading}</h2>
@@ -100,7 +102,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="process section" id="process">
+        <section className="process section cinematic-section" id="process">
+          <CinematicBackdrop src="https://d8j0ntlcm91z4.cloudfront.net/user_3Bnh4rFMZnk5sksDeNoJN4Y4Mee/hf_20260924_215701_6ea60b0a-588e-4dcf-b224-a2042fe6eef7.mp4" className="process-film" />
           <header>
             <p className="eyebrow">Production protocol</p>
             <h2>The clock starts when the work can.</h2>
@@ -120,7 +123,8 @@ export default function Home() {
           <div className="about-copy"><p className="eyebrow">{config.about.eyebrow}</p><h2>{config.about.heading}</h2><p>{config.about.body}</p></div>
         </section>
 
-        <section className="security section">
+        <section className="security section cinematic-section">
+          <CinematicBackdrop src="https://d8j0ntlcm91z4.cloudfront.net/user_3Bnh4rFMZnk5sksDeNoJN4Y4Mee/hf_20260924_215717_0e633ec3-c4d7-486b-ad70-3219409bb68b.mp4" className="security-film" />
           <div>
             <p className="eyebrow">Access without exposure</p>
             <h2>Your passwords do not belong in a project message.</h2>
@@ -138,7 +142,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="conversion section" id="start">
+        <section className="conversion section cinematic-section" id="start">
+          <CinematicBackdrop src="https://d8j0ntlcm91z4.cloudfront.net/user_3Bnh4rFMZnk5sksDeNoJN4Y4Mee/hf_20260924_215736_ac48376a-8c1a-43fb-8dd8-7f204ec4468c.mp4" className="launch-film" />
           <div className="conversion-intro">
             <p className="eyebrow">The first commit</p>
             <h2>{config.conversion.heading}</h2>
