@@ -142,7 +142,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="conversion section" id="start">
+        <section className="conversion section cinematic-section" id="start">
+          <CinematicBackdrop src="https://d8j0ntlcm91z4.cloudfront.net/user_3Bnh4rFMZnk5sksDeNoJN4Y4Mee/hf_20260924_215736_ac48376a-8c1a-43fb-8dd8-7f204ec4468c.mp4" className="launch-film" />
           <div className="conversion-intro">
             <p className="eyebrow">The first commit</p>
             <h2>{config.conversion.heading}</h2>
