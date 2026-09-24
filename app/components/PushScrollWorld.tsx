@@ -3,10 +3,13 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+const HERO_FILM = "https://d8j0ntlcm91z4.cloudfront.net/user_3Bnh4rFMZnk5sksDeNoJN4Y4Mee/hf_20260924_215442_83413cd2-c035-4d5a-8163-d19aade07f85.mp4";
+
 export default function PushScrollWorld() {
   const host = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [ready, setReady] = useState(false);
+  const [filmReady, setFilmReady] = useState(false);
   const [paused, setPaused] = useState(false);
   const pauseRef = useRef(false);
 
@@ -135,7 +138,9 @@ export default function PushScrollWorld() {
       };
       renderModel(0); setReady(true); schedule();
     }
-    load().catch(() => { cleanupModel?.(); cleanupModel = undefined; if (!disposed) setReady(false); });
+    if (reduced.matches || connection?.saveData) {
+      load().catch(() => { cleanupModel?.(); cleanupModel = undefined; if (!disposed) setReady(false); });
+    }
     return () => {
       disposed = true; cancelAnimationFrame(frame); cleanupModel?.(); resize.disconnect(); intersection.disconnect(); svg.remove();
       window.removeEventListener("scroll", schedule); document.removeEventListener("visibilitychange", schedule);
@@ -144,7 +149,19 @@ export default function PushScrollWorld() {
     };
   }, []);
 
-  return <div className="push-world" ref={host} data-ready={ready}>
+  return <div className="push-world" ref={host} data-ready={ready} data-film-ready={filmReady}>
+    <video
+      className="push-world-film"
+      src={HERO_FILM}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      aria-hidden="true"
+      onCanPlay={() => setFilmReady(true)}
+      onError={() => setFilmReady(false)}
+    />
     <Image className="push-world-poster" src="/brand/push2start-symbol.jpeg" alt="Chrome Push2Start diamond with luminous lime and cyan branches" width={1280} height={1280} priority sizes="(max-width:900px) 90vw,45vw" />
     <canvas ref={canvas} aria-hidden="true" />
     <div className="push-world-caption"><span>One commit. A world of possibilities.</span><button type="button" aria-pressed={paused} onClick={() => { pauseRef.current = !paused; setPaused(!paused); }}>{paused ? "Resume motion" : "Pause motion"}</button></div>
