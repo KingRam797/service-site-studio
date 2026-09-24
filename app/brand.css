@@ -156,3 +156,10 @@ body { background: #030506; color: #f0f3f5; }
   .push-world-film,
   .cinematic-backdrop video { display: none !important; }
 }
+
+.conversion .launch-film video { opacity: .24; filter: saturate(.9) contrast(1.04); }
+.conversion .launch-film .cinematic-backdrop-scrim {
+  background:
+    linear-gradient(90deg, #10191cf2 0%, #10191c9b 48%, #10191ce8 100%),
+    linear-gradient(180deg, #10191ce8 0%, transparent 42%, #10191cf2 100%);
+}
