@@ -8,6 +8,7 @@ const HERO_FILM = "https://d8j0ntlcm91z4.cloudfront.net/user_3Bnh4rFMZnk5sksDeNo
 export default function PushScrollWorld() {
   const host = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
+  const film = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
   const [filmReady, setFilmReady] = useState(false);
   const [filmEnabled, setFilmEnabled] = useState(false);
@@ -153,6 +154,7 @@ export default function PushScrollWorld() {
 
   return <div className="push-world" ref={host} data-ready={ready} data-film-ready={filmReady}>
     {filmEnabled && <video
+      ref={film}
       className="push-world-film"
       src={HERO_FILM}
       autoPlay
@@ -166,6 +168,13 @@ export default function PushScrollWorld() {
     />}
     <Image className="push-world-poster" src="/brand/push2start-symbol.jpeg" alt="Chrome Push2Start diamond with luminous lime and cyan branches" width={1280} height={1280} priority sizes="(max-width:900px) 90vw,45vw" />
     <canvas ref={canvas} aria-hidden="true" />
-    <div className="push-world-caption"><span>One commit. A world of possibilities.</span><button type="button" aria-pressed={paused} onClick={() => { pauseRef.current = !paused; setPaused(!paused); }}>{paused ? "Resume motion" : "Pause motion"}</button></div>
+    <div className="push-world-caption"><span>One commit. A world of possibilities.</span><button type="button" aria-pressed={paused} onClick={() => {
+      const nextPaused = !pauseRef.current;
+      pauseRef.current = nextPaused;
+      setPaused(nextPaused);
+      if (nextPaused) film.current?.pause();
+      else film.current?.play().catch(() => undefined);
+      if (!nextPaused) requestAnimationFrame(() => window.dispatchEvent(new Event("scroll")));
+    }}>{paused ? "Resume motion" : "Pause motion"}</button></div>
   </div>;
 }
