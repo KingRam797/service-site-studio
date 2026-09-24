@@ -10,6 +10,7 @@ export default function PushScrollWorld() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const [ready, setReady] = useState(false);
   const [filmReady, setFilmReady] = useState(false);
+  const [filmEnabled, setFilmEnabled] = useState(false);
   const [paused, setPaused] = useState(false);
   const pauseRef = useRef(false);
 
@@ -20,6 +21,7 @@ export default function PushScrollWorld() {
     if (!container || !surface || !main) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    setFilmEnabled(!reduced.matches && !connection?.saveData);
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.classList.add("push-paths"); svg.setAttribute("aria-hidden", "true");
     const paths: SVGPathElement[] = [];
@@ -150,7 +152,7 @@ export default function PushScrollWorld() {
   }, []);
 
   return <div className="push-world" ref={host} data-ready={ready} data-film-ready={filmReady}>
-    <video
+    {filmEnabled && <video
       className="push-world-film"
       src={HERO_FILM}
       autoPlay
@@ -161,7 +163,7 @@ export default function PushScrollWorld() {
       aria-hidden="true"
       onCanPlay={() => setFilmReady(true)}
       onError={() => setFilmReady(false)}
-    />
+    />}
     <Image className="push-world-poster" src="/brand/push2start-symbol.jpeg" alt="Chrome Push2Start diamond with luminous lime and cyan branches" width={1280} height={1280} priority sizes="(max-width:900px) 90vw,45vw" />
     <canvas ref={canvas} aria-hidden="true" />
     <div className="push-world-caption"><span>One commit. A world of possibilities.</span><button type="button" aria-pressed={paused} onClick={() => { pauseRef.current = !paused; setPaused(!paused); }}>{paused ? "Resume motion" : "Pause motion"}</button></div>
