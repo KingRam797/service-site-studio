@@ -38,6 +38,7 @@ Use the matching skill only when relevant:
 - `deployment-check`
 - `frontend-pass`
 - `mobile-playtest`
+- `three-pass-delivery` — scoped client builds; reuse existing intake, module matrix and release checklist
 
 ## Delegation
 Delegate only when explicitly authorized and when tasks are substantial, independent, and precisely scoped. The primary agent owns integration and verification.

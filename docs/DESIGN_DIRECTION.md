@@ -1,42 +1,23 @@
-# Design Direction System
+# Push2Start design direction
 
-## Demo direction
+Current approved identity: obsidian, polished chrome, restrained white, lime and cyan. This replaces the original workshop-paper demo direction.
 
-**Subject:** a compact studio that turns the operations of independent service businesses into persuasive, usable sites.
+The customer should understand a distinctive business site can be delivered through a dependable system, then request a scoped build. Preserve the approved public copy and business rules.
 
-**Audience:** owners who have credible work but an improvised digital customer path.
+## Motion hierarchy
 
-**Single job:** turn a qualified visitor into a scoped launch request.
+COMMIT → BUILD → PROOF → PROCESS → LAUNCH describes the visual story; the page keeps proof early in the conversion hierarchy. The 1080p Commit Ignition hero is the strongest moment. Supporting films remain atmospheric under text. Existing signal paths route into the four proof cards; quiet signal markers carry the language through the remaining cinematic sections.
 
-## Visual tokens
+Use `config/cinematic-assets.ts` for versioned production media and `docs/cinematic-assets.json` for provenance/checksums. Generated URLs are sources, never runtime dependencies. Use the existing approved assets; no AI-human imagery, unrelated particles, cyberpunk clutter or decorative motion without a purpose.
 
-| Role | Value | Reason |
-|---|---|---|
-| Workshop paper | `#f3f0e9` | worktable rather than sterile software canvas |
-| Clean sheet | `#fffdf8` | proof and form surfaces |
-| Blueprint ink | `#10243e` | operational clarity and strong type |
-| Pencil note | `#5f6873` | secondary explanation |
-| Approval red | `#e3482f` | marks decisions and next actions |
-| Screen blue | `#2b69ff` | distinguishes the digital outcome from the working materials |
-| Display | Arial Narrow / Aptos Display | condensed, directive, space-efficient headlines |
-| Body | Aptos / Segoe UI | readable working copy and forms |
+`CinematicBackdrop` owns proximity loading, viewport/tab pausing, reduced-motion and supported Save-Data handling, posters and failure behavior. One shared motion preference controls all films and signal motion. Posters are the deliberate failure/reduced-data state. The canonical GLB remains available in the repository; the homepage does not download an unused 3D stack behind the hero film.
 
-## Composition
+## Proof
 
-The page behaves like a working review wall: headline, layered operating sheets, proof boards, a ruled service register, a dark production sequence, and a blue conversion surface.
+Shared chrome browser surfaces hold real captured client sites. Creative Impressions, Like That Cutz, NoKissing and Smile Now/Cry Later retain distinct imagery and accents. Hover/focus depth is restrained; touch opens the same real project link directly. These are captured previews, not embedded live applications or an uptime claim.
 
-## Signature
+## Client identity boundary
 
-The hero's three offset sheets—Policies, Proof, Conversion—make the architecture visible without presenting a software diagram. It is the one expressive gesture; the remaining page stays disciplined.
+Reuse responsive behavior, accessibility, metadata, analytics, forms, operational contracts, checks and handoff. Change the visible identity together: typography, palette, composition, imagery/cropping, content hierarchy, conversion voice and signature interaction. Changing only colors and copy fails the design gate.
 
-## Non-template rule
-
-For a client build, replace all five of these together:
-
-1. typography roles;
-2. palette and contrast behavior;
-3. composition preset;
-4. image rhythm/crop strategy;
-5. signature element.
-
-Changing only colors and copy fails the design gate.
+For new client delivery, use `.agents/skills/three-pass-delivery/SKILL.md` and the existing intake/module/checklist documents. Do not inherit Push2Start's chrome aesthetic by default.
