@@ -1,5 +1,12 @@
 # Progress
 
+## Visible section motion (2026-09-25)
+
+- User clarified all four supplied artworks should be visible motion loops. Verified the packages/process/security films in the Push2Startstudio.com Higgsfield account match the supplied stills; sampled frames at 0/2/4 seconds. Browser confirmed process film plays at only 0.3 opacity beneath overlays: integration visibility failure, not missing collection.
+- New CinematicPanel presents films at full opacity, uncropped 16:9, outside copy, with synchronized pause/resume and existing mobile autoplay recovery. Existing launch film also promoted to a visible panel.
+- Only missing film: four-browser proof transition. Submitted Higgsfield job b390a130-5018-4b00-a92b-05bd84778e14 (seedance_2_5, Push2Startstudio.com account); never resubmit. Completed, reviewed at 0/2/4 seconds and integrated as a 571,680-byte H.264 fast-start MP4.
+- 37 tests, lint and production build passed for the panel change.
+
 ## Omnipresence Push2Start artwork (2026-09-25)
 
 - Verified omnipresence176@gmail.com and all five completed generations; prompts explicitly identify Push2Start and visual review confirms black/chrome/lime/cyan. This account contains stills, not motion films.

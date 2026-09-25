@@ -129,6 +129,13 @@ html[data-motion-paused="true"] .site .proof-card:is(:hover, :focus-visible) .pr
 .cinematic-play:focus-visible { outline: 2px solid #00cdf0; outline-offset: 3px; }
 .cinematic-backdrop:has(.cinematic-play:not([hidden])) { z-index: auto; }
 
-/* Approved Omnipresence transition: retain all four frames on narrow screens. */
-.proof-signal-art { margin: 0 0 2rem; overflow: hidden; border: 1px solid #26363b; border-radius: 20px; background: #030506; }
-.proof-signal-art img { display: block; width: 100%; height: auto; }
+/* Films are visible media panels, never obscured behind section copy. */
+.motion-panel { position: relative; grid-column: 1 / -1; width: 100%; min-width: 0; aspect-ratio: 16 / 9; margin: 0 0 2rem; overflow: hidden; border: 1px solid #34484f; border-radius: 22px; background: #030506; }
+.motion-panel .cinematic-backdrop { --film-opacity: 1; }
+.motion-panel .cinematic-backdrop video, .motion-panel .cinematic-poster { object-fit: contain; }
+.motion-panel .cinematic-backdrop-scrim { display: none; }
+.motion-panel-caption { position: absolute; inset: auto 0 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .65rem .85rem; background: linear-gradient(transparent, #030506f0); color: #e8eff1; font: .7rem/1.4 ui-monospace, monospace; }
+.motion-panel-caption button { min-height: 44px; flex-shrink: 0; padding: .5rem .75rem; border: 1px solid #52656a; border-radius: 24px; color: #fff; background: #101518; cursor: pointer; }
+.motion-panel-caption button:focus-visible { outline: 2px solid #00cdf0; outline-offset: 2px; }
+@media (max-width: 600px) { .motion-panel { border-radius: 14px; } .motion-panel-caption { font-size: .6rem; padding: .35rem .5rem; } }
+@media (prefers-reduced-motion: reduce) { .motion-panel-caption button { display: none; } }

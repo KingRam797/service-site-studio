@@ -81,5 +81,20 @@
     "posterBytes": 61066,
     "sourceSha256": "cb8e7d745f6ca10a95a13d3c171a8b3fb11f88487584c0bb2a998dd449d37d3d",
     "sha256": "051300134b71e792b3154731ca533fcdac029387b0a37afc6100480047f9996e"
+  },
+  {
+    "name": "proof",
+    "source": "https://d8j0ntlcm91z4.cloudfront.net/user_3Bnh4rFMZnk5sksDeNoJN4Y4Mee/hf_20260925_110700_b390a130-5018-4b00-a92b-05bd84778e14.mp4",
+    "generationId": "b390a130-5018-4b00-a92b-05bd84778e14",
+    "bytes": 902243,
+    "width": 1280,
+    "height": 720,
+    "duration": "5.041667",
+    "codec": "h264",
+    "production": "/media/cinematic/proof-v1.mp4",
+    "poster": "/media/cinematic/proof-omnipresence-v1.webp",
+    "optimizedBytes": 571680,
+    "sha256": "ea35807eadc67adebd3a4fb362c37d461945f2dd1850d8b6262f33b43da971e0",
+    "sourceSha256": "5b60a7dd98905cb6f6bc730dfed4595859afb7597013132073d2e1f2222b36ec"
   }
 ]

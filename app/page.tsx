@@ -7,7 +7,7 @@ import Testimonials from "./components/Testimonials";
 import TrackedLink from "./components/TrackedLink";
 import { faqPageSchema, jsonLdProps } from "@/lib/structured-data";
 import PushScrollWorld from "./components/PushScrollWorld";
-import CinematicBackdrop from "./components/CinematicBackdrop";
+import CinematicPanel from "./components/CinematicPanel";
 import "./brand.css";
 import { cinematicAssets } from "@/config/cinematic-assets";
 
@@ -76,9 +76,7 @@ export default function Home() {
             <h2>{config.proof.heading}</h2>
             <p>{config.proof.intro}</p>
           </header>
-          <div className="proof-signal-art" aria-hidden="true">
-            <Image src="/media/cinematic/proof-omnipresence-v1.webp" alt="" width={1600} height={893} sizes="(max-width: 700px) 100vw, (max-width: 1320px) 90vw, 1200px" />
-          </div>
+          <CinematicPanel {...cinematicAssets.proof} label="One signal. Every build." />
           <div className="proof-grid">
             {config.proof.items.map((item, index) => (
               <ProofCard item={item} index={index} key={item.title} />
@@ -89,7 +87,7 @@ export default function Home() {
         <Testimonials />
 
         <section className="services section cinematic-section signal-stage" id="services">
-          <CinematicBackdrop {...cinematicAssets.packages} className="packages-film" />
+          <CinematicPanel {...cinematicAssets.packages} label="Choose your build" />
           <div className="section-heading services-heading">
             <p className="eyebrow">{config.services.eyebrow}</p>
             <h2>{config.services.heading}</h2>
@@ -108,7 +106,7 @@ export default function Home() {
         </section>
 
         <section className="process section cinematic-section signal-stage" id="process">
-          <CinematicBackdrop {...cinematicAssets.process} className="process-film" />
+          <CinematicPanel {...cinematicAssets.process} label="From blueprint to launch" />
           <header>
             <p className="eyebrow">Production protocol</p>
             <h2>The clock starts when the work can.</h2>
@@ -129,7 +127,7 @@ export default function Home() {
         </section>
 
         <section className="security section cinematic-section signal-stage">
-          <CinematicBackdrop {...cinematicAssets.security} className="security-film" />
+          <CinematicPanel {...cinematicAssets.security} label="Public entry. Secured access." />
           <div>
             <p className="eyebrow">Access without exposure</p>
             <h2>Your passwords do not belong in a project message.</h2>
@@ -148,7 +146,7 @@ export default function Home() {
         </section>
 
         <section className="conversion section cinematic-section signal-stage" id="start">
-          <CinematicBackdrop {...cinematicAssets.launch} className="launch-film" />
+          <CinematicPanel {...cinematicAssets.launch} label="Ready for your next chapter" />
           <div className="conversion-intro">
             <p className="eyebrow">The first commit</p>
             <h2>{config.conversion.heading}</h2>
