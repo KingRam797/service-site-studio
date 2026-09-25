@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site.config";
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
@@ -41,7 +42,7 @@ export default async function ClientPage() {
           <span className="workspace-kicker">ACCOUNT CONNECTED</span>
           <h1>Your first project has not been assigned yet.</h1>
           <p>Once your build is accepted, this workspace will show materials, milestones, secure provider connections, payments, and launch progress.</p>
-          <a href="mailto:Push2starter@gmail.com">Contact Push2Start</a>
+          <a href={`mailto:${siteConfig.business.email}`}>Contact Push2Start</a>
         </section>
       </main>
     );

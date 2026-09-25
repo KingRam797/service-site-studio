@@ -7,7 +7,7 @@ export const siteConfig: SiteConfig = {
     legalEntity: "PainOrPane Professionals",
     location: "Detroit, Michigan · serving businesses remotely",
     phone: "586-224-2150",
-    email: "Push2starter@gmail.com",
+    email: "pusher@push2startstudio.com",
     tagline: "Expert, enterprise-grade sites in 10–14 days.",
     shortDescription:
       "Distinctive business websites that connect brand, customer action, and the way the work actually gets done.",

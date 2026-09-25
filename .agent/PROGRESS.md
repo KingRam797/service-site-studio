@@ -1,5 +1,11 @@
 # Progress
 
+## Mobile films and contact email (2026-09-25)
+
+- Public contact and client mailto use pusher@push2startstudio.com. Default inquiry recipient follows config; explicit production INQUIRY_TO_EMAIL still takes precedence. No provider settings or live email sends changed.
+- Mobile video properties are set before source loading. Autoplay NotAllowedError preserves the film and exposes an accessible Play motion button; tapping retries directly in the user gesture. Reduced-motion, data-saving, pause and offscreen policies remain intact. Mobile section film opacity increased from .16 to .32.
+- 37 tests, ESLint and production build passed. Browser verification unavailable: installed browser missing and download returned an invalid archive. Real iPhone/Low Power Mode playback still needs device confirmation.
+
 ## Launch agreement pass (2026-09-20)
 
 - Corrected NoKissing portfolio destination to verified public https://no-kissing.vercel.app.

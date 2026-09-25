@@ -71,7 +71,7 @@ test("INQUIRY_TO_EMAIL redirects the notification without changing the published
   });
   assert.deepEqual(calls[0].body.to, ["someone.else@example.com"]);
   // The site still publishes the business address; only delivery moved.
-  assert.equal(siteConfig.business.email, "Push2starter@gmail.com");
+  assert.equal(siteConfig.business.email, "pusher@push2startstudio.com");
   delete process.env.INQUIRY_TO_EMAIL;
 });
 
@@ -94,7 +94,7 @@ test("both delivery paths normalize the owner address for Resend's test-recipien
       assert.equal((await sendTestEmail()).ok, true);
     });
     assert.equal(calls.length, 2);
-    assert.equal(siteConfig.business.email, "Push2starter@gmail.com");
+    assert.equal(siteConfig.business.email, "pusher@push2startstudio.com");
   } finally {
     delete process.env.INQUIRY_TO_EMAIL;
     delete process.env.RESEND_API_KEY;
@@ -104,7 +104,7 @@ test("both delivery paths normalize the owner address for Resend's test-recipien
 test("a whitespace-only recipient override falls back to the owner address", () => {
   process.env.INQUIRY_TO_EMAIL = "   ";
   try {
-    assert.equal(inquiryRecipient(), "push2starter@gmail.com");
+    assert.equal(inquiryRecipient(), "pusher@push2startstudio.com");
   } finally {
     delete process.env.INQUIRY_TO_EMAIL;
   }

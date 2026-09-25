@@ -15,44 +15,62 @@ type CinematicBackdropProps = {
 /** No video URL is attached until browser preferences and proximity are known. */
 export default function CinematicBackdrop({ src, poster, className = "", eager = false }: CinematicBackdropProps) {
   const host = useRef<HTMLDivElement>(null);
+  const playButton = useRef<HTMLButtonElement>(null);
   const film = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const node = host.current;
     const video = film.current;
     if (!node || !video) return;
+    const button = playButton.current;
+    // Set DOM properties before loading: inline muted playback on mobile Safari.
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const connection = (navigator as Navigator & { connection?: EventTarget & { saveData?: boolean } }).connection;
-    let near = eager, visible = false, failed = false, disposed = false, pending = false;
+    let near = eager, visible = false, failed = false, disposed = false, pending = false, blocked = false;
     const policy = () => cinematicPolicy({ reduced: reduced.matches, saveData: !!connection?.saveData, paused: motionPaused(), near, visible, hidden: document.hidden, failed });
     const release = () => {
       video.pause();
       node.dataset.ready = "false";
+      if (button) button.hidden = true;
       if (video.hasAttribute("src")) { video.removeAttribute("src"); video.load(); }
     };
     const fail = () => { failed = true; release(); };
     const sync = () => {
       if (disposed) return;
       const state = policy();
+      if (button) button.hidden = !blocked || !state.play;
       if (state.release) { release(); return; }
       if (state.attach && !video.hasAttribute("src")) { video.src = src; video.load(); }
       if (!state.play) { video.pause(); return; }
-      if (!video.hasAttribute("src") || !video.paused || pending) return;
+      if (!video.hasAttribute("src") || !video.paused || pending || blocked) return;
       pending = true;
       video.play().then(() => {
         if (disposed || !policy().play) video.pause();
       }).catch((error: DOMException) => {
         // A pause, preference change or cleanup may interrupt a pending play.
-        if (!disposed && policy().play && error.name !== "AbortError") fail();
+        if (disposed || !policy().play || error.name === "AbortError") return;
+        if (error.name === "NotAllowedError") {
+          blocked = true;
+          if (button) button.hidden = false;
+        } else fail();
       }).finally(() => {
         pending = false;
-        if (!disposed && !failed && policy().play && video.paused) sync();
+        if (!disposed && !failed && !blocked && policy().play && video.paused) sync();
       });
     };
     const playing = () => {
-      if (policy().play) node.dataset.ready = "true";
+      if (policy().play) {
+        node.dataset.ready = "true";
+        blocked = false;
+        if (button) button.hidden = true;
+      }
       else video.pause();
     };
+    const retry = () => { blocked = false; sync(); };
+    button?.addEventListener("click", retry);
     const proximity = new IntersectionObserver(([entry]) => { near = entry.isIntersecting; sync(); }, { rootMargin: "35% 0px" });
     const viewport = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
     proximity.observe(node); viewport.observe(node);
@@ -65,6 +83,7 @@ export default function CinematicBackdrop({ src, poster, className = "", eager =
     sync();
     return () => {
       disposed = true;
+      button?.removeEventListener("click", retry);
       proximity.disconnect(); viewport.disconnect(); unsubscribe();
       reduced.removeEventListener("change", sync);
       connection?.removeEventListener("change", sync);
@@ -75,10 +94,11 @@ export default function CinematicBackdrop({ src, poster, className = "", eager =
   }, [src, eager]);
 
   return (
-    <div ref={host} className={`cinematic-backdrop ${className}`} aria-hidden="true">
+    <div ref={host} className={`cinematic-backdrop ${className}`}>
       <Image className="cinematic-poster" src={poster} alt="" fill sizes={eager ? "(max-width: 900px) 90vw, 45vw" : "100vw"} preload={eager} />
-      <video ref={film} muted loop playsInline preload="none" tabIndex={-1} disablePictureInPicture />
-      <span className="cinematic-backdrop-scrim" />
+      <video aria-hidden="true" ref={film} muted loop playsInline preload="none" tabIndex={-1} disablePictureInPicture />
+      <span className="cinematic-backdrop-scrim" aria-hidden="true" />
+      <button ref={playButton} type="button" className="cinematic-play" hidden>Play motion</button>
     </div>
   );
 }

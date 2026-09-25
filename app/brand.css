@@ -87,7 +87,7 @@ body { background: #030506; color: #f0f3f5; }
 .services.cinematic-section, .security.cinematic-section { width: 100%; max-width: none; padding-inline: max(1.25rem, calc((100vw - 1320px)/2)); }
 @media (max-width: 900px) {
   .push-world { aspect-ratio: 16 / 10; }
-  .cinematic-section .cinematic-backdrop { --film-opacity: .16; }
+  .cinematic-section .cinematic-backdrop { --film-opacity: .32; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cinematic-backdrop video { display: none; }
@@ -122,3 +122,9 @@ html[data-motion-paused="true"] .terminal-cursor { animation-play-state: paused;
 }
 html[data-motion-paused="true"] .site .proof-card,
 html[data-motion-paused="true"] .site .proof-card:is(:hover, :focus-visible) .project-visual img { transform: none; transition: none; }
+
+/* A real gesture can start motion when mobile power settings block autoplay. */
+.cinematic-play { position: absolute; bottom: 3.5rem; right: 1rem; z-index: 4; pointer-events: auto; min-height: 44px; padding: .65rem 1rem; border: 1px solid #a7f83e; border-radius: 999px; background: #030506; color: #fff; cursor: pointer; }
+.cinematic-play[hidden] { display: none; }
+.cinematic-play:focus-visible { outline: 2px solid #00cdf0; outline-offset: 3px; }
+.cinematic-backdrop:has(.cinematic-play:not([hidden])) { z-index: auto; }
