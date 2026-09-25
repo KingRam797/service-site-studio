@@ -76,6 +76,9 @@ export default function Home() {
             <h2>{config.proof.heading}</h2>
             <p>{config.proof.intro}</p>
           </header>
+          <div className="proof-signal-art" aria-hidden="true">
+            <Image src="/media/cinematic/proof-omnipresence-v1.webp" alt="" width={1600} height={893} sizes="(max-width: 700px) 100vw, (max-width: 1320px) 90vw, 1200px" />
+          </div>
           <div className="proof-grid">
             {config.proof.items.map((item, index) => (
               <ProofCard item={item} index={index} key={item.title} />

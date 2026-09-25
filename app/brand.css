@@ -128,3 +128,7 @@ html[data-motion-paused="true"] .site .proof-card:is(:hover, :focus-visible) .pr
 .cinematic-play[hidden] { display: none; }
 .cinematic-play:focus-visible { outline: 2px solid #00cdf0; outline-offset: 3px; }
 .cinematic-backdrop:has(.cinematic-play:not([hidden])) { z-index: auto; }
+
+/* Approved Omnipresence transition: retain all four frames on narrow screens. */
+.proof-signal-art { margin: 0 0 2rem; overflow: hidden; border: 1px solid #26363b; border-radius: 20px; background: #030506; }
+.proof-signal-art img { display: block; width: 100%; height: auto; }

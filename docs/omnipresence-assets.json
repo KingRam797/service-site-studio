@@ -1,0 +1,52 @@
+[
+  {
+    "name": "packages",
+    "id": "4ab64bb0-6a08-4429-aab4-37608e645cc6",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_170408_4ab64bb0-6a08-4429-aab4-37608e645cc6.png",
+    "prompt": "Push2Start Studio packages-section cinematic keyframe, approved visual system. Three premium black-glass vertical monolith cards stand on a glossy obsidian platform in a dark spatial environment. Each card has subtle chrome framing and abstract interface marks only, NO readable text. One continuous lime-green/cyan energy signal arrives from the left and sequentially powers the three cards; the center card is slightly elevated and brighter to indicate the highlighted path without looking like a generic pricing table. Elegant restrained glow, polished metal, realistic glass, premium enterprise software/product-launch aesthetic, architectural composition, no people, no dollar signs, no text, no extra logos. 16:9 website section art.",
+    "account": "omnipresence176@gmail.com",
+    "production": "/media/cinematic/packages-omnipresence-v1.webp",
+    "bytes": 26570,
+    "sha256": "ee83c07aec76c08765e60efbc8b024fb10b0e5938e367b5c009ae26bd6355f52"
+  },
+  {
+    "name": "security",
+    "id": "537ec1a0-8efc-4f98-9a23-6187311240ea",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_170317_537ec1a0-8efc-4f98-9a23-6187311240ea.png",
+    "prompt": "Push2Start Studio secure-access section keyframe, approved visual system. Symmetrical split composition on deep black: left channel illuminated lime-green and visibly open, right channel illuminated cyan-white and protected behind elegant translucent black glass. A sculptural polished chrome Push2Start emblem sits at the center where one energy stream bifurcates into the two channels. Public side feels open and exploratory; secured side feels private, encrypted, controlled. Premium enterprise software aesthetic, realistic chrome and glass, restrained volumetric lighting, obsidian environment, no people, no readable text, no generic padlock icon, no extra logos. 16:9 website section art.",
+    "account": "omnipresence176@gmail.com",
+    "production": "/media/cinematic/security-omnipresence-v1.webp",
+    "bytes": 27290,
+    "sha256": "5d40cc737f73f82e647d880e7855ef0537db007356e7a94523dd24d8bd2139b9"
+  },
+  {
+    "name": "process",
+    "id": "8fe4b10e-62f4-4c22-bf2c-54c1f1c55e24",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_170230_8fe4b10e-62f4-4c22-bf2c-54c1f1c55e24.png",
+    "prompt": "Push2Start Studio process-section keyframe, approved visual system. Three distinct transparent black-glass and chrome modules on a dark obsidian platform connected by one continuous lime-green/cyan energy line. Left module visually largest and most foundational, middle and right equal smaller stages, implying a 50 / 25 / 25 workflow without rendering any numbers or text. First module contains strategic blueprint geometry, second contains construction and interface layers, third contains a clean upward launch beam. Premium cinematic product visualization, deep black, chrome, restrained haze, no people, no text, no extra logos. 16:9 website section art.",
+    "account": "omnipresence176@gmail.com",
+    "production": "/media/cinematic/process-omnipresence-v1.webp",
+    "bytes": 87850,
+    "sha256": "0ed02bebebc663f924ab461161c7fc6f493ef5b5d386079e8be1084d98ab3dca"
+  },
+  {
+    "name": "proof",
+    "id": "5b0181b2-27eb-421b-9199-cc5e0946b6af",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_170125_5b0181b2-27eb-421b-9199-cc5e0946b6af.png",
+    "prompt": "Push2Start Studio transition keyframe, approved visual system. Deep black premium software-launch environment, a continuous lime-green and cyan data-energy filament travels horizontally through a sequence of four floating black glass browser/device frames, each with abstract website layouts but NO readable text, chrome edges, realistic reflections, subtle brand-color accents within each screen, fractured obsidian ground, restrained particles, elegant cinematic lighting, clean composition, no people, no extra logos. This represents COMMIT -> BUILD -> PROOF -> PROCESS -> LAUNCH without rendering words. 16:9 website section transition.",
+    "account": "omnipresence176@gmail.com",
+    "production": "/media/cinematic/proof-omnipresence-v1.webp",
+    "bytes": 88862,
+    "sha256": "2f395b0176c67e10bec21148fc671c8b10ffadf0426c0867c147cc6af3e5f047"
+  },
+  {
+    "name": "hero",
+    "id": "a0fb37f9-31cd-402f-8df7-a3f1d0e85dd9",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_165941_a0fb37f9-31cd-402f-8df7-a3f1d0e85dd9.png",
+    "prompt": "Master website hero frame for PUSH2START STUDIO, derived from the approved three-board visual package. A single sculptural chrome Push2Start emblem is suspended slightly right of center in a deep-black spatial environment with glossy obsidian ground and restrained fractured dark rock. Electric lime-green and cyan data-energy filaments approach from the left, enter the emblem, and branch elegantly behind it. Controlled volumetric haze, tiny luminous data particles, premium software-launch-film lighting, realistic polished metal, crisp silhouette, dramatic depth, elegant not chaotic. Leave generous negative space on the left for the real website headline and CTA. No people, no fake UI, no generated words, no extra logos, no symbols besides the central emblem, no clutter. High-end cinematic motion-design keyframe intended as the first frame of an 8-second website hero animation.",
+    "account": "omnipresence176@gmail.com",
+    "production": "/media/cinematic/hero-omnipresence-v1.webp",
+    "bytes": 73840,
+    "sha256": "600535bb06bf0ce105106100422fd73b154faf36b07f713ade1d9cf95fba5a4f"
+  }
+]

@@ -8,11 +8,13 @@
     "duration": "8.041667",
     "codec": "h264",
     "production": "/media/cinematic/hero-v1.mp4",
-    "poster": "/media/cinematic/hero-v1.webp",
+    "poster": "/media/cinematic/hero-omnipresence-v1.webp",
     "optimizedBytes": 4096779,
-    "posterBytes": 104040,
+    "posterBytes": 73840,
     "sourceSha256": "c91c4bbc9a90d36c6c17506a717bd673215581539ca5067844970708864038ef",
-    "sha256": "2e71f254cfb088818b97087a7d896d5b77de39843b166fd91ec15eb8f1a60acd"
+    "sha256": "2e71f254cfb088818b97087a7d896d5b77de39843b166fd91ec15eb8f1a60acd",
+    "posterSource": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_165941_a0fb37f9-31cd-402f-8df7-a3f1d0e85dd9.png",
+    "posterGenerationId": "a0fb37f9-31cd-402f-8df7-a3f1d0e85dd9"
   },
   {
     "name": "packages",
@@ -23,11 +25,13 @@
     "duration": "5.041667",
     "codec": "h264",
     "production": "/media/cinematic/packages-v1.mp4",
-    "poster": "/media/cinematic/packages-v1.webp",
+    "poster": "/media/cinematic/packages-omnipresence-v1.webp",
     "optimizedBytes": 496937,
-    "posterBytes": 17108,
+    "posterBytes": 26570,
     "sourceSha256": "5e34ba990ce051edb9ae5ad248bbc1416fad5c9a4b047e8f44dcdeeac9e969fe",
-    "sha256": "7be6997174f2d5ea968fcf229898fde3e9638b85f45deb5062968403e3135b04"
+    "sha256": "7be6997174f2d5ea968fcf229898fde3e9638b85f45deb5062968403e3135b04",
+    "posterSource": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_170408_4ab64bb0-6a08-4429-aab4-37608e645cc6.png",
+    "posterGenerationId": "4ab64bb0-6a08-4429-aab4-37608e645cc6"
   },
   {
     "name": "process",
@@ -38,11 +42,13 @@
     "duration": "5.041667",
     "codec": "h264",
     "production": "/media/cinematic/process-v1.mp4",
-    "poster": "/media/cinematic/process-v1.webp",
+    "poster": "/media/cinematic/process-omnipresence-v1.webp",
     "optimizedBytes": 737683,
-    "posterBytes": 52118,
+    "posterBytes": 87850,
     "sourceSha256": "daa26cfe373a86f5389aa0b203ede9c9a9746bcc682152e382cf47bfd616a259",
-    "sha256": "f556fbb040929acb5c5c7e341ae71f27aec0e2a1f985cc936f6d4e7f8229a930"
+    "sha256": "f556fbb040929acb5c5c7e341ae71f27aec0e2a1f985cc936f6d4e7f8229a930",
+    "posterSource": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_170230_8fe4b10e-62f4-4c22-bf2c-54c1f1c55e24.png",
+    "posterGenerationId": "8fe4b10e-62f4-4c22-bf2c-54c1f1c55e24"
   },
   {
     "name": "security",
@@ -53,11 +59,13 @@
     "duration": "5.041667",
     "codec": "h264",
     "production": "/media/cinematic/security-v1.mp4",
-    "poster": "/media/cinematic/security-v1.webp",
+    "poster": "/media/cinematic/security-omnipresence-v1.webp",
     "optimizedBytes": 581474,
-    "posterBytes": 14536,
+    "posterBytes": 27290,
     "sourceSha256": "1aa04f6450972926aae8b88be2f573fe82a64f3200cc497d7181cb037ef3106e",
-    "sha256": "6b4619782803dbfee2898e7ed7a92bf61e39d7f223ee4f8991c7a3a22ddba82b"
+    "sha256": "6b4619782803dbfee2898e7ed7a92bf61e39d7f223ee4f8991c7a3a22ddba82b",
+    "posterSource": "https://d8j0ntlcm91z4.cloudfront.net/user_3EPAUDyJyzoRza0ny2ezuWuv1aZ/hf_20260924_170317_537ec1a0-8efc-4f98-9a23-6187311240ea.png",
+    "posterGenerationId": "537ec1a0-8efc-4f98-9a23-6187311240ea"
   },
   {
     "name": "launch",

@@ -1,5 +1,12 @@
 # Progress
 
+## Omnipresence Push2Start artwork (2026-09-25)
+
+- Verified omnipresence176@gmail.com and all five completed generations; prompts explicitly identify Push2Start and visual review confirms black/chrome/lime/cyan. This account contains stills, not motion films.
+- Imported five optimized 1600px WebP images (304,412 bytes total). Hero, packages, process and security now use these as film posters; the four-browser transition appears above Selected Builds at its original aspect ratio on mobile. Existing motion films and launch poster preserved.
+- Provenance: docs/omnipresence-assets.json and updated docs/cinematic-assets.json. No generation credits spent.
+- Verification: asset decoding/dimensions and lint/build checked. Real-device visual review remains unavailable in this runtime.
+
 ## Mobile films and contact email (2026-09-25)
 
 - Public contact and client mailto use pusher@push2startstudio.com. Default inquiry recipient follows config; explicit production INQUIRY_TO_EMAIL still takes precedence. No provider settings or live email sends changed.
