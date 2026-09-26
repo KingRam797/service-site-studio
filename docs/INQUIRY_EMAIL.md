@@ -3,7 +3,7 @@
 Build requests are emailed to the owner through Resend (`lib/inquiry-delivery.ts`).
 
 - **From:** `push2Start <inquiries@push2startstudio.com>`. `INQUIRY_FROM_EMAIL` overrides it.
-- **To:** `pusher@push2startstudio.com`, the public address in `config/site.config.ts`. Leave `INQUIRY_TO_EMAIL` unset to keep it.
+- **To:** `pusher@push2startstudio.com`, the public address in `config/site.config.ts` and a Spacemail mailbox. Leave `INQUIRY_TO_EMAIL` unset to keep it.
 - **Reply-To:** the visitor, so a reply goes straight to the lead.
 
 Resend refuses every send (HTTP 403) until `push2startstudio.com` shows **Verified** under Domains. Resend's shared `onboarding@resend.dev` sender is no workaround: it only delivers to the Resend account's own address, never to pusher@.
@@ -27,9 +27,9 @@ DKIM value, pasted as one line without quotes:
 p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDP8PyWQb+qJ/ytJgWjeyPmviCKhB9+fJ0X/KPNax2suHaSHPhn9OgDDt9BZvG1q+y6Qtw86ETU5043MhhSv1PUylOryrAhiVUVOpnLG3chxCq5DZsqBrGWVykOsPIoi3cMnRKnR/LdK5aAFNtih+1wBjSqcII3i1Tp2aBquc0B3QIDAQAB
 ```
 
-These are the values Resend issued for this domain on 2026-09-18. If its Domains page ever shows different ones, Resend is right.
+These are the values Resend issued for this domain on 2026-09-18 and verified on 2026-09-26. If its Domains page ever shows different ones, Resend is right.
 
-The records sit only on `send`, `rsend` and `resend._domainkey`. Leave the root (`@`) MX records that receive pusher@ mail, and the records pointing the site at Vercel, unchanged.
+The records sit only on `send`, `rsend` and `resend._domainkey`. Leave the root (`@`) records that Spacemail uses to receive pusher@ mail, and the records pointing the site at Vercel, unchanged. Don't turn on Spaceship email forwarding: it would take over pusher@ from Spacemail.
 
 ## Confirm
 

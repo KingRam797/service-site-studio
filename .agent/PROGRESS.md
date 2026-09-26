@@ -4,9 +4,9 @@
 
 - Inquiries were not reaching pusher@push2startstudio.com: Resend's domain push2startstudio.com (added 2026-09-18) failed verification on all four records, and production sends at 16:00 UTC returned 403. DNS is served by Spaceship (`launch1/launch2.spaceship.net`); Vercel lists the domain but is not authoritative, and its connector cannot see this project.
 - Default sender changed from Resend's shared onboarding@resend.dev (delivers only to the Resend account's own address) to `push2Start <inquiries@push2startstudio.com>`; `INQUIRY_FROM_EMAIL` still overrides. Records and checks: `docs/INQUIRY_EMAIL.md`.
-- Re-verification triggered 2026-09-26 and still pending, with no record found. The Spaceship connector is on the account but needs reconnecting, and only a new session picks it up. The sandbox network policy blocks DNS-over-HTTPS and the live site.
-- 38 tests, ESLint and `tsc --noEmit` passed.
-- Next: reconnect Spaceship, add the four records (new session with the connector, or by hand), confirm Resend shows Verified, merge, check `INQUIRY_TO_EMAIL` is unset in Vercel, then `GET /api/inquiries?test=send`.
+- Owner added the four records in Spaceship by hand; Resend verified the domain 2026-09-26 ~16:50 UTC. The site's next two sends returned 200 and the owner confirmed inquiries now arrive. pusher@ is a Spacemail mailbox (its root MX belongs to Spacemail); do not enable Spaceship email forwarding.
+- The Spaceship connector had been added as a custom connector pointing at `https://www.spaceship.com/application/user-account` (not an MCP server), so sign-in could not start. Spaceship's MCP address is `https://mcp.spaceship.com/mcp`. The sandbox network policy blocks DNS-over-HTTPS and the live site; the Vercel connector cannot see project `push2start`.
+- 38 tests, ESLint and `tsc --noEmit` passed. Merged as PR #12.
 
 ## Meta Pixel (2026-09-26)
 
