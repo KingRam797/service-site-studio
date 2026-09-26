@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
 import type { SiteConfig } from "@/config/types";
+import { trackMetaLead } from "./MetaPixel";
 
 const labels = {
   name: "Your name",
@@ -56,6 +57,7 @@ export default function InquiryForm({
       form.reset();
       startedAt.current = Date.now();
       setStatus("sent");
+      if (payload.delivered) trackMetaLead();
       // Fired on a confirmed 2xx only, never on click.
       try {
         track("inquiry_submit", { service: String(data.service ?? "unspecified") });

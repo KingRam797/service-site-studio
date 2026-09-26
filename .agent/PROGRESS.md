@@ -1,5 +1,11 @@
 # Progress
 
+## Meta Pixel (2026-09-26)
+
+- Added Pixel 2296378871117878 to public pages after an explicit visitor choice. PageView follows route changes, ViewContent covers the three service pages, and Lead fires only after delivered inquiries; no form fields go to Meta.
+- Added persistent allow/decline controls with a footer preference link, excluded client/sign-in events, updated the privacy policy, and omitted the no-script image because it would bypass the visitor's choice.
+- 37 tests, ESLint, and production build passed locally. Next: publish and verify PageView/ViewContent/Lead in Meta Events Manager Test Events with an approved test inquiry.
+
 ## Visible section motion (2026-09-25)
 
 - User clarified all four supplied artworks should be visible motion loops. Verified the packages/process/security films in the Push2Startstudio.com Higgsfield account match the supplied stills; sampled frames at 0/2/4 seconds. Browser confirmed process film plays at only 0.3 opacity beneath overlays: integration visibility failure, not missing collection.

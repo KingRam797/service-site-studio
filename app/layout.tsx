@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { siteConfig } from "@/config/site.config";
 import { jsonLdProps, professionalServiceSchema } from "@/lib/structured-data";
 import { siteUrl } from "@/lib/site-url";
+import MetaPixel from "./components/MetaPixel";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script {...jsonLdProps(professionalServiceSchema())} />
         <Analytics />
         <SpeedInsights />
+        <MetaPixel />
       </body>
     </html>
   );

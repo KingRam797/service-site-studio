@@ -2,6 +2,7 @@ import Image from "next/image";
 import { siteConfig } from "@/config/site.config";
 import { hasDialablePhone, phoneHref } from "@/lib/config";
 import TrackedLink from "./TrackedLink";
+import { MetaPrivacyControl } from "./MetaPixel";
 
 export function BranchMark({ compact = false }: { compact?: boolean }) {
   return (
@@ -57,6 +58,7 @@ export function SiteFooter({ home = false }: { home?: boolean }) {
         <p>{config.footerNote}</p>
         <p className="footer-legal">
           © {new Date().getFullYear()} {config.business.legalEntity} · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a>
+          {" · "}<MetaPrivacyControl />
         </p>
       </div>
       <div className="footer-links">

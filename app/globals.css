@@ -277,3 +277,36 @@ footer p { margin: 0; max-width: 420px; color: #8e9bb0; }
   .section { width: min(100% - 2rem, 1320px); padding: 4.7rem 0; }
   .process, .conversion { width: 100%; padding: 4.7rem 1rem; }
 }
+/* Optional Meta advertising measurement choices. */
+.meta-consent {
+  position: fixed;
+  z-index: 1000;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  max-width: 43rem;
+  margin-inline: auto;
+  padding: 1rem 1.2rem;
+  color: #f2f5f2;
+  background: #101815;
+  border: 1px solid #94e64f;
+  border-radius: .75rem;
+  box-shadow: 0 12px 40px #0009;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.meta-consent p { margin: 0 0 .8rem; }
+.meta-consent a { color: #aee8ff; text-decoration: underline; }
+.meta-consent-actions { display: flex; justify-content: flex-end; gap: .75rem; }
+.meta-consent-actions button {
+  padding: .55rem 1rem;
+  border: 1px solid #b4c4bb;
+  border-radius: .35rem;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+.meta-consent-actions button:last-child { background: #a8ef65; color: #101815; border-color: #a8ef65; }
+.meta-consent button:focus-visible, .privacy-choice-link:focus-visible { outline: 3px solid #60d8ff; outline-offset: 3px; }
+.privacy-choice-link { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }

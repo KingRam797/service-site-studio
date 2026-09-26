@@ -25,8 +25,8 @@ function clean(value: unknown, max = 2000) {
 }
 
 /** Accepted silently so a bot cannot tell rejection from success. */
-function accepted() {
-  return NextResponse.json({ ok: true });
+function accepted(delivered = false) {
+  return NextResponse.json({ ok: true, delivered });
 }
 
 export async function POST(request: Request) {
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
   const { delivered } = await deliverInquiry(inquiry);
 
   if (!delivered) return NextResponse.json({ error: "We could not deliver your request." }, { status: 503 });
-  return accepted();
+  return accepted(true);
 }
 
 /**

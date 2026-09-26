@@ -24,7 +24,7 @@ export default function Privacy() {
         <p className="legal-lede">
           Short version: we collect what you type into the inquiry form, we use it to answer you, and we
           do not sell it to anyone. Last updated{" "}
-          <time dateTime="2026-09-18">September 18, 2026</time>.
+          <time dateTime="2026-09-26">September 26, 2026</time>.
         </p>
 
         <h2>1. Who is responsible</h2>
@@ -62,7 +62,7 @@ export default function Privacy() {
           providers process the information on our instructions in order to run the service; they do not
           receive it for their own marketing.
         </p>
-        <p>We do not sell your information, and we do not share it with anyone else.</p>
+        <p>We do not sell the information you submit in the inquiry form.</p>
 
         <h2>4. How long we keep it</h2>
         <p>
@@ -75,10 +75,13 @@ export default function Privacy() {
         <h2>5. Analytics</h2>
         <p>
           We use Vercel Web Analytics and Speed Insights to count page views and measure how fast pages
-          load. These are cookieless: they set no cookies, they do not track you across other websites,
-          and they do not build a profile of you. The data is aggregated and does not identify
-          individual visitors. This is why the site shows no cookie consent banner — there is nothing to
-          consent to.
+          load. These tools do not set advertising cookies. We also offer optional Meta Pixel tracking
+          on public pages to measure ad visits, service-page views, and successfully delivered inquiries.
+          If you select Allow, your browser loads Meta&apos;s script and shares page activity, browser data,
+          and associated cookie identifiers with Meta for ad measurement and optimization. We do not
+          send the contents of your inquiry form to Meta. We do not send Pixel events from the client
+          workspace or sign-in pages. Select Decline to use the site without the Meta Pixel. Your choice is saved
+          in this browser; use Privacy choices in the footer to change it later.
         </p>
 
         <h2>6. Client workspace accounts</h2>
