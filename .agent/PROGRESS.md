@@ -1,5 +1,13 @@
 # Progress
 
+## Inquiry sender domain (2026-09-26)
+
+- Inquiries were not reaching pusher@push2startstudio.com: Resend's domain push2startstudio.com (added 2026-09-18) failed verification on all four records, and production sends at 16:00 UTC returned 403. DNS is served by Spaceship (`launch1/launch2.spaceship.net`); Vercel lists the domain but is not authoritative, and its connector cannot see this project.
+- Default sender changed from Resend's shared onboarding@resend.dev (delivers only to the Resend account's own address) to `push2Start <inquiries@push2startstudio.com>`; `INQUIRY_FROM_EMAIL` still overrides. Records and checks: `docs/INQUIRY_EMAIL.md`.
+- Re-verification triggered 2026-09-26 and still pending, with no record found. The Spaceship connector is on the account but needs reconnecting, and only a new session picks it up. The sandbox network policy blocks DNS-over-HTTPS and the live site.
+- 38 tests, ESLint and `tsc --noEmit` passed.
+- Next: reconnect Spaceship, add the four records (new session with the connector, or by hand), confirm Resend shows Verified, merge, check `INQUIRY_TO_EMAIL` is unset in Vercel, then `GET /api/inquiries?test=send`.
+
 ## Meta Pixel (2026-09-26)
 
 - Added Pixel 2296378871117878 to public pages after an explicit visitor choice. PageView follows route changes, ViewContent covers the three service pages, and Lead fires only after delivered inquiries; no form fields go to Meta.

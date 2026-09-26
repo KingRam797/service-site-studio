@@ -5,8 +5,12 @@ import { databaseConfigured, getSql } from "./db.ts";
 
 export type Inquiry = Record<string, string>;
 
-/** Resend's shared test sender, which needs no verified domain of our own. */
-const DEFAULT_FROM_EMAIL = "push2Start <onboarding@resend.dev>";
+/**
+ * Sends from the business domain, verified in Resend by the DNS records in
+ * docs/INQUIRY_EMAIL.md. Resend's shared onboarding@resend.dev sender cannot
+ * reach the business inbox: it only delivers to the Resend account's own address.
+ */
+const DEFAULT_FROM_EMAIL = "push2Start <inquiries@push2startstudio.com>";
 
 /**
  * Each delivery channel is independent and never throws: one unreachable
@@ -60,12 +64,17 @@ export async function postWebhook(inquiry: Inquiry) {
  * Resend's shared test sender, which only delivers to the address the Resend
  * account itself was registered with.
  *
- * INQUIRY_FROM_EMAIL overrides the sender once a domain is verified.
+ * INQUIRY_FROM_EMAIL overrides the sender; it must be on a domain Resend
+ * shows as verified, or Resend refuses the send.
  */
 export function inquiryRecipient() {
   // Resend's shared sender compares the recipient with the account address
   // case-sensitively. Normalize delivery only; keep the public branding intact.
   return (process.env.INQUIRY_TO_EMAIL?.trim() || siteConfig.business.email).trim().toLowerCase();
+}
+
+function inquirySender() {
+  return process.env.INQUIRY_FROM_EMAIL?.trim() || DEFAULT_FROM_EMAIL;
 }
 
 export async function emailOwner(inquiry: Inquiry) {
@@ -78,7 +87,7 @@ export async function emailOwner(inquiry: Inquiry) {
       method: "POST",
       headers: { authorization: `Bearer ${resendKey}`, "content-type": "application/json" },
       body: JSON.stringify({
-        from: process.env.INQUIRY_FROM_EMAIL || DEFAULT_FROM_EMAIL,
+        from: inquirySender(),
         to: [recipient],
         reply_to: inquiry.email,
         subject: `New ${siteConfig.conversion.mode} request from ${inquiry.name}`,
@@ -139,8 +148,8 @@ export async function deliveryDiagnostics() {
     resendAuthStatus: null as number | null,
     resendAuthDetail: null as string | null,
     recipient: inquiryRecipient(),
-    sender: process.env.INQUIRY_FROM_EMAIL || DEFAULT_FROM_EMAIL,
-    senderIsSharedTestAddress: !process.env.INQUIRY_FROM_EMAIL,
+    sender: inquirySender(),
+    senderIsSharedTestAddress: inquirySender().toLowerCase().includes("@resend.dev"),
     databaseConfigured,
     webhookConfigured: Boolean(process.env.INQUIRY_WEBHOOK_URL),
   };
@@ -167,10 +176,10 @@ export async function deliveryDiagnostics() {
 /**
  * Performs one real send and reports Resend's verbatim response.
  *
- * Auth succeeding says nothing about whether a send is permitted: without a
- * verified domain, Resend accepts the key but refuses any recipient other
- * than the address the account was registered with, and the refusal is only
- * visible on the send call itself. Returns the status and body so the cause
+ * Auth succeeding says nothing about whether a send is permitted: Resend
+ * accepts the key but refuses a sender whose domain is not verified (and its
+ * shared test sender refuses any recipient but the account's own address),
+ * and the refusal is only visible on the send call itself. Returns the status and body so the cause
  * is named rather than inferred. Never returns the API key.
  */
 export async function sendTestEmail() {
@@ -178,7 +187,7 @@ export async function sendTestEmail() {
   if (!resendKey) return { attempted: false, reason: "RESEND_API_KEY is not set" };
 
   const payload = {
-    from: process.env.INQUIRY_FROM_EMAIL || DEFAULT_FROM_EMAIL,
+    from: inquirySender(),
     to: [inquiryRecipient()],
     subject: "push2Start delivery test",
     text: "This is a delivery test for the push2Start inquiry form. If you are reading it, direct delivery works.",

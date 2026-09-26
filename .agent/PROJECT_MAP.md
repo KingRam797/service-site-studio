@@ -8,4 +8,5 @@
 - Payments: `app/actions/payments.ts`, `app/api/webhooks/stripe/route.ts`, `lib/stripe.ts`
 - Client data: `lib/client-workspace.ts`, `lib/db.ts`, `db/schema.sql`
 - Public content: `config/site.config.ts`
+- Inquiry delivery: `app/api/inquiries/route.ts`, `lib/inquiry-delivery.ts`; sender DNS: `docs/INQUIRY_EMAIL.md`
 - Build checks: `npm run validate`, `npm test`, `npm run lint`, `npm run build`

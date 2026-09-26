@@ -34,14 +34,15 @@ test("no email is attempted without an API key", async () => {
   assert.equal(calls.length, 0);
 });
 
-test("the API key alone is enough — the sender falls back to Resend's test address", async () => {
+test("the API key alone is enough — inquiries are sent from the verified business domain", async () => {
   process.env.RESEND_API_KEY = "re_test";
   delete process.env.INQUIRY_FROM_EMAIL;
   const calls = await withFetch(() => new Response("{}", { status: 200 }), async () => {
     assert.equal(await emailOwner(inquiry), true);
   });
   assert.equal(calls.length, 1);
-  assert.match(String(calls[0].body.from), /onboarding@resend\.dev/);
+  // Resend's shared onboarding@resend.dev sender cannot deliver to the business inbox.
+  assert.equal(calls[0].body.from, "push2Start <inquiries@push2startstudio.com>");
 });
 
 test("the inquiry is addressed to the configured business email", async () => {
@@ -132,9 +133,20 @@ test("diagnostics report a missing key without calling Resend", async () => {
     assert.equal(report.resendKeyPresent, false);
     assert.equal(report.resendKeyLooksValid, null);
     assert.equal(report.recipient, siteConfig.business.email.toLowerCase());
-    assert.equal(report.senderIsSharedTestAddress, true);
+    assert.equal(report.sender, "push2Start <inquiries@push2startstudio.com>");
+    assert.equal(report.senderIsSharedTestAddress, false);
   });
   assert.equal(calls.length, 0);
+});
+
+test("diagnostics flag Resend's shared test sender when it is chosen explicitly", async () => {
+  delete process.env.RESEND_API_KEY;
+  process.env.INQUIRY_FROM_EMAIL = "push2Start <onboarding@resend.dev>";
+  try {
+    assert.equal((await deliveryDiagnostics()).senderIsSharedTestAddress, true);
+  } finally {
+    delete process.env.INQUIRY_FROM_EMAIL;
+  }
 });
 
 test("diagnostics surface a rejected key and never echo its value", async () => {

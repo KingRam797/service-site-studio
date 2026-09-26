@@ -55,7 +55,7 @@ npm run dev
 The site tries direct delivery first, then opens the configured email or SMS fallback when delivery is unavailable.
 
 - `INQUIRY_WEBHOOK_URL`: sends validated JSON to the client's automation endpoint.
-- `RESEND_API_KEY` and `INQUIRY_FROM_EMAIL`: send owner notification email.
+- `RESEND_API_KEY`: emails the owner from `inquiries@push2startstudio.com`, which Resend accepts only while the domain is verified (DNS records in `docs/INQUIRY_EMAIL.md`). `INQUIRY_FROM_EMAIL` overrides the sender.
 - No delivery secrets belong in source control.
 
 ## Key files
