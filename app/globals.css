@@ -286,19 +286,23 @@ footer p { margin: 0; max-width: 420px; color: #8e9bb0; }
   right: 1rem;
   max-width: 43rem;
   margin-inline: auto;
-  padding: 1rem 1.2rem;
+  padding: .75rem 1rem;
   color: #f2f5f2;
   background: #101815;
   border: 1px solid #94e64f;
   border-radius: .75rem;
   box-shadow: 0 12px 40px #0009;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.4;
 }
+.meta-consent-heading { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.meta-consent-close { flex-shrink: 0; width: 44px; height: 44px; border: 0; background: none; color: inherit; font-size: 1.5rem; cursor: pointer; }
 .meta-consent p { margin: 0 0 .8rem; }
 .meta-consent a { color: #aee8ff; text-decoration: underline; }
-.meta-consent-actions { display: flex; justify-content: flex-end; gap: .75rem; }
+.meta-consent-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: .5rem; }
+.meta-consent-actions a { margin-right: auto; font-size: .875rem; padding-block: .5rem; }
 .meta-consent-actions button {
+  min-height: 44px;
   padding: .55rem 1rem;
   border: 1px solid #b4c4bb;
   border-radius: .35rem;
@@ -310,3 +314,6 @@ footer p { margin: 0; max-width: 420px; color: #8e9bb0; }
 .meta-consent-actions button:last-child { background: #a8ef65; color: #101815; border-color: #a8ef65; }
 .meta-consent button:focus-visible, .privacy-choice-link:focus-visible { outline: 3px solid #60d8ff; outline-offset: 3px; }
 .privacy-choice-link { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+@media (max-width: 480px) {
+  .meta-consent { left: .5rem; right: .5rem; bottom: .5rem; padding: .5rem .75rem .75rem; }
+}

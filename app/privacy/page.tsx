@@ -77,7 +77,7 @@ export default function Privacy() {
           We use Vercel Web Analytics and Speed Insights to count page views and measure how fast pages
           load. These tools do not set advertising cookies. We also offer optional Meta Pixel tracking
           on public pages to measure ad visits, service-page views, and successfully delivered inquiries.
-          If you select Allow, your browser loads Meta&apos;s script and shares page activity, browser data,
+          If you select Allow cookies, your browser loads Meta&apos;s script and shares page activity, browser data,
           and associated cookie identifiers with Meta for ad measurement and optimization. We do not
           send the contents of your inquiry form to Meta. We do not send Pixel events from the client
           workspace or sign-in pages. Select Decline to use the site without the Meta Pixel. Your choice is saved

@@ -113,10 +113,15 @@ export default function MetaPixel() {
       )}
       {hydrated && (showChoices || choice === null) && publicPage && (
         <div className="meta-consent" role="region" aria-label="Advertising privacy choices">
-          <p>May we use Meta Pixel to measure visits and inquiries from our ads? Meta may use cookies for ad measurement. <a href="/privacy">How it works</a></p>
+          <div className="meta-consent-heading">
+            <strong>Optional advertising cookies</strong>
+            <button type="button" className="meta-consent-close" aria-label="Close cookie choices" onClick={() => choice === null ? choose("declined") : setShowChoices(false)}>×</button>
+          </div>
+          <p>With your permission, we use Meta cookies to understand which ads bring visitors and inquiries to Push2Start. You can change your choice anytime.</p>
           <div className="meta-consent-actions">
+            <a href="/privacy">Privacy details</a>
             <button type="button" onClick={() => choose("declined")}>Decline</button>
-            <button type="button" onClick={() => choose("accepted")}>Allow</button>
+            <button type="button" onClick={() => choose("accepted")}>Allow cookies</button>
           </div>
         </div>
       )}
