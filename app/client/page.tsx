@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site.config";
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 import { createMilestoneCheckout } from "@/app/actions/payments";
 import { requestProviderConnection } from "@/app/actions/connections";
 import { clerkConfigured } from "@/lib/auth";
@@ -14,6 +14,22 @@ import { AGREEMENT_PDF } from "@/lib/agreement";
 
 function money(cents: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
+}
+
+function WorkspaceHeader({ name }: { name?: string }) {
+  return (
+    <header className="workspace-nav">
+      <Link href="/" className="workspace-brand" aria-label="Push2Start home">push<span>2</span>Start</Link>
+      <div>
+        {name && <span>{name}</span>}
+        <Link href="/" className="workspace-home">Home</Link>
+        <UserButton />
+        <SignOutButton redirectUrl="/">
+          <button type="button" className="workspace-sign-out">Sign out</button>
+        </SignOutButton>
+      </div>
+    </header>
+  );
 }
 
 function SetupState() {
@@ -37,11 +53,12 @@ export default async function ClientPage() {
 
   if (!workspace) {
     return (
-      <main className="workspace-shell workspace-centered">
+      <main className="workspace-shell workspace-unassigned">
+        <WorkspaceHeader />
         <section className="workspace-empty">
           <span className="workspace-kicker">ACCOUNT CONNECTED</span>
-          <h1>Your first project has not been assigned yet.</h1>
-          <p>Once your build is accepted, this workspace will show materials, milestones, secure provider connections, payments, and launch progress.</p>
+          <h1>Your next build starts here.</h1>
+          <p>No project is assigned to this account yet. Once your build is accepted, you’ll find your materials, milestones, payments, and launch progress here.</p>
           <a href={`mailto:${siteConfig.business.email}`}>Contact Push2Start</a>
         </section>
       </main>
@@ -51,10 +68,7 @@ export default async function ClientPage() {
   const received = workspace.materials.filter((item) => item.status !== "needed").length;
   return (
     <main className="workspace-shell">
-      <header className="workspace-nav">
-        <Link href="/" className="workspace-brand">push<span>2</span>Start</Link>
-        <div><span>{workspace.businessName}</span><UserButton /></div>
-      </header>
+      <WorkspaceHeader name={workspace.businessName} />
 
       <section className="workspace-hero">
         <div>

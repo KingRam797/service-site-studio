@@ -1,5 +1,13 @@
 # Progress
 
+## Client workspace brand and sign-out (2026-10-09)
+
+- Added shared Home, account menu, and explicit Clerk Sign out controls to assigned and unassigned client pages; sign-out redirects home.
+- Replaced legacy orange/blue workspace accents with approved obsidian/chrome/lime/cyan, corrected mobile heading scale, focus indicators and button sizing.
+- User confirmed Production Clerk DNS/certificates; signup empty state and recording of TEST ONLY project loading observed. Stripe remains deferred until access is restored; no payment or environment settings changed.
+- Targeted TSX syntax and CSS parsing passed; authenticated sign-out interaction and production deployment still require live verification. No full build rerun for this focused UI change.
+
+
 ## Meta Pixel (2026-09-26)
 
 - Added Pixel 2296378871117878 to public pages after an explicit visitor choice. PageView follows route changes, ViewContent covers the three service pages, and Lead fires only after delivered inquiries; no form fields go to Meta.
