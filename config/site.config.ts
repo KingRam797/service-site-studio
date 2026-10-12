@@ -57,13 +57,13 @@ export const siteConfig: SiteConfig = {
       "Each build starts with the same standard and ends with a different identity. These projects shaped the push2Start production system.",
     items: [
       {
-        title: "Creative Impressions",
-        category: "Event décor · inquiry system",
-        description: "A visual service experience built around quote requests, date capacity, deposits, and Detroit-area credibility.",
-        result: "Brand and operations in one path",
-        href: "https://creative-impressions.vercel.app/",
-        image: "/work/creative-impressions-site.webp",
-        imageAlt: "Creative Impressions homepage with lavender event décor and event inquiry link",
+        title: "Dilla Den",
+        category: "Creative portfolio · modeling, music and footwear",
+        description: "Kameron Ingram’s Dune / Atelier portfolio brings original photography, an interactive collection, a cinematic runway, and creative inquiries into one personal world.",
+        result: "A creative identity with room to grow",
+        href: "https://www.kameron.space",
+        image: "/work/dilla-den-site.webp",
+        imageAlt: "Dilla Den homepage with Kameron Ingram’s portrait, cream editorial layout and collection link",
       },
       {
         title: "Like That Cutz",

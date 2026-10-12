@@ -1,5 +1,12 @@
 # Progress
 
+## Dilla Den portfolio swap (2026-10-12)
+
+- Replaced Creative Impressions in the four-site Selected Builds portfolio with Dilla Den; updated category, description, result, destination and accessible preview text.
+- Destination is the verified production alias `https://www.kameron.space` for `KingRam797/Dilla-Den`; preview reuses the existing Dilla Den desktop homepage capture as `/work/dilla-den-site.webp`.
+- Configuration validation and targeted four-card/content checks passed. Existing other three portfolio entries and all surrounding content preserved.
+- Publication follows the repository’s existing main-to-Push2Start Vercel integration; deployment status is checked after publishing. Direct Vercel project inspection returned a scope 403; no deployment settings changed.
+
 ## Client workspace brand and sign-out (2026-10-09)
 
 - Added shared Home, account menu, and explicit Clerk Sign out controls to assigned and unassigned client pages; sign-out redirects home.
