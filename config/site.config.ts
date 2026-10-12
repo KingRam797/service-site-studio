@@ -59,10 +59,10 @@ export const siteConfig: SiteConfig = {
       {
         title: "Dilla Den",
         category: "Creative portfolio · modeling, music and footwear",
-        description: "Kameron Ingram’s Dune / Atelier portfolio brings original photography, an interactive collection, a cinematic runway, and creative inquiries into one personal world.",
+        description: "Kameron Ingram’s modeling portfolio connects streetwear, editorial photography, runway motion, music, and custom footwear with a clear path for creative collaborations.",
         result: "A creative identity with room to grow",
         href: "https://www.kameron.space",
-        image: "/work/dilla-den-site.webp",
+        image: "/work/dilla-den-site.jpg",
         imageAlt: "Dilla Den homepage with Kameron Ingram’s portrait, cream editorial layout and collection link",
       },
       {

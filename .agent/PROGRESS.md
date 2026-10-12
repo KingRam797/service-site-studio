@@ -1,5 +1,12 @@
 # Progress
 
+## Kameron modeling and culture copy (2026-10-12)
+
+- Reframed the Dilla Den proof description around modeling, streetwear, editorial photography, runway motion, music and custom footwear, following the owner’s explicit copy preference.
+- Replaced the old homepage capture with a refreshed `/work/dilla-den-site.jpg` showing the updated Streetwear label and model-focused hero copy.
+- Keep future descriptions culture-led and model-oriented; do not reuse ceramic, pottery or atelier design framing.
+- Configuration and four-card preservation checks passed. Related Kameron copy passed Node and desktop/mobile checks; release uses each site’s existing main-to-production integration.
+
 ## Dilla Den portfolio swap (2026-10-12)
 
 - Replaced Creative Impressions in the four-site Selected Builds portfolio with Dilla Den; updated category, description, result, destination and accessible preview text.
