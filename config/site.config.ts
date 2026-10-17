@@ -1,5 +1,14 @@
 import type { SiteConfig } from "./types";
 
+// Total promotional allocation, not a live remaining-spots counter.
+// Raise to at most 50 when expanding the offer; confirm allocations during review.
+export const FREE_PROOF_PAGE_LIMIT = 15;
+if (!Number.isInteger(FREE_PROOF_PAGE_LIMIT) || FREE_PROOF_PAGE_LIMIT < 1 || FREE_PROOF_PAGE_LIMIT > 50) {
+  throw new Error("Free Proof Page allocation must be between 1 and 50.");
+}
+const proofPageOffer = `First ${FREE_PROOF_PAGE_LIMIT} Proof Pages free`;
+const proofPageTerms = `The first ${FREE_PROOF_PAGE_LIMIT} customers confirmed for the offer receive a Proof Page build with the $499 build fee waived. Submit a Proof Page request; we confirm availability and scope during review. An inquiry does not reserve a spot. Domains, third-party subscriptions, transaction fees, licensed assets, and out-of-scope work remain separate. Booking Ready and Operations Site retain their regular prices.`;
+
 export const siteConfig: SiteConfig = {
   business: {
     name: "push2Start",
@@ -11,8 +20,8 @@ export const siteConfig: SiteConfig = {
     tagline: "Expert, enterprise-grade sites in 10–14 days.",
     shortDescription:
       "Distinctive business websites that connect brand, customer action, and the way the work actually gets done.",
-    availability: "Now reviewing launch requests",
-    paymentMethods: "50% · 25% · 25% production structure",
+    availability: proofPageOffer,
+    paymentMethods: "50% · 25% · 25% for paid builds; no build-fee payments for confirmed free Proof Pages",
     socials: [{ label: "Instagram", href: "https://www.instagram.com/push2start888" }],
   },
   seo: {
@@ -35,19 +44,19 @@ export const siteConfig: SiteConfig = {
     signature: "moving-rule",
   },
   hero: {
-    eyebrow: "commit / build / ship",
+    eyebrow: proofPageOffer,
     headline: "Commit today.",
     emphasizedLine: "A brighter tomorrow.",
     body:
       "We turn the way your business actually works into a distinctive site customers can understand, trust, and act on—without a six-month agency process.",
     actions: [
-      { label: "Start a build", href: "#start", kind: "primary" },
+      { label: "Request a free Proof Page", href: "/proof-page#start", kind: "primary" },
       { label: "Compare the builds", href: "#services", kind: "secondary" },
     ],
     facts: [
       { label: "Production window", value: "10–14 calendar days" },
       { label: "Build begins", value: "At READY_TO_BUILD" },
-      { label: "Payment rhythm", value: "50 / 25 / 25" },
+      { label: "Launch offer", value: proofPageOffer },
     ],
   },
   proof: {
@@ -98,7 +107,7 @@ export const siteConfig: SiteConfig = {
     eyebrow: "Choose the outcome",
     heading: "Three ways to get moving.",
     intro:
-      "The package is based on what the site must do for the business—not how many decorative pages can be added to an estimate.",
+      `${proofPageOffer}. Proof Page is normally $499; the build fee is waived for confirmed offer spots. Choose the package based on what your site needs to do.`,
     items: [
       {
         name: "Proof Page",
@@ -106,7 +115,7 @@ export const siteConfig: SiteConfig = {
         description: "A high-impact single page for one clear offer: positioning, services, real work, contact routing, essential search setup, and launch.",
         price: "$499",
         duration: "10–14 calendar days",
-        note: "Great in a rush. Best when done right. Better in public.",
+        note: `${proofPageOffer}. Normally $499. Offer availability confirmed during review; third-party costs separate.`,
       },
       {
         name: "Booking Ready",
@@ -128,10 +137,10 @@ export const siteConfig: SiteConfig = {
   },
   process: [
     { title: "Materials gathered", description: "Content, links, policies, approved images, and one decision-maker arrive in the workspace." },
-    { title: "50% reserves production", description: "The opening payment secures the build window and necessary production resources." },
-    { title: "READY_TO_BUILD", description: "The clock starts only when the required materials and opening payment are complete." },
-    { title: "Direction approved · 25%", description: "Approve the visual direction and working primary page before the full system is completed." },
-    { title: "Launch approved · 25%", description: "The final payment clears production launch, access transfer, and the operating handoff." },
+    { title: "50% reserves production", description: "For paid builds, the opening payment secures production. Confirmed free Proof Pages have no build fee; we confirm the production window in writing." },
+    { title: "READY_TO_BUILD", description: "The clock starts when required materials are complete and the opening payment or free Proof Page confirmation is in place." },
+    { title: "Direction approved · 25%", description: "Approve the visual direction and working primary page before the full system is completed. The 25% payment applies to paid builds only." },
+    { title: "Launch approved · 25%", description: "Approve launch, access transfer, and the operating handoff. The final 25% payment applies to paid builds only." },
   ],
   about: {
     eyebrow: "The push2Start standard",
@@ -140,8 +149,9 @@ export const siteConfig: SiteConfig = {
       "The invisible foundation—responsive behavior, accessibility, forms, metadata, deployment checks, and handoff—should be repeatable. The part customers see should belong to one business alone. That is how we move quickly without making every client look the same.",
   },
   faqs: [
-    { question: "When does the 10–14-day window start?", answer: "Production takes 10–14 calendar days from our written READY_TO_BUILD confirmation: the opening 50% is handled, required materials are gathered, and one decision-maker is ready to respond. Delays in materials or approvals pause the window." },
-    { question: "What does the 50 / 25 / 25 structure mean?", answer: "50% reserves the production window, 25% follows approval of the visual direction and working primary page, and the final 25% is due before production launch and transfer." },
+    { question: "How does the free Proof Page offer work?", answer: proofPageTerms },
+    { question: "When does the 10–14-day window start?", answer: "Production takes 10–14 calendar days from our written READY_TO_BUILD confirmation: the opening 50% is handled or your free Proof Page spot is confirmed, required materials are gathered, and one decision-maker is ready to respond. Delays in materials or approvals pause the window." },
+    { question: "What does the 50 / 25 / 25 structure mean?", answer: "Confirmed free Proof Pages have no build fee. For paid builds, 50% reserves the production window, 25% follows approval of the visual direction and working primary page, and the final 25% is due before production launch and transfer." },
     { question: "Will my site look like the other builds?", answer: "No. The operating foundation is reused; the typography, palette, composition, image rhythm, voice, and signature interaction are directed for your business." },
     { question: "Can you connect booking, payments, or store tools?", answer: "Yes. Booking, deposits, payments, availability, capacity, and fulfillment logic are scoped into Booking Ready or the Operations Site based on what the workflow needs to enforce." },
     { question: "Do I send passwords through the inquiry form?", answer: "Never. The inquiry collects project context only. Provider access and sensitive credentials use a separate secured authorization step after the project is accepted." },
@@ -149,9 +159,9 @@ export const siteConfig: SiteConfig = {
   conversion: {
     mode: "quote",
     heading: "Make the first commit.",
-    intro: "Tell us what the business sells, how customers act today, and what a successful launch needs to change.",
+    intro: `${proofPageOffer}. Select Proof Page and mention the free offer in your message. ${proofPageTerms} Tell us what your business sells and what you need the page to do.`,
     submitLabel: "Request a build review",
-    successMessage: "Your build request is in. The next step is a fit and materials review.",
+    successMessage: "Your build request is in. We will review fit, materials, and offer availability. Free Proof Page spots are confirmed separately.",
     fallback: "email",
     fields: ["name", "email", "phone", "service", "budget", "message"],
   },
