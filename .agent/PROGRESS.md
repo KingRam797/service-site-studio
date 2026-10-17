@@ -1,5 +1,14 @@
 # Progress
 
+## Free Proof Page launch offer (2026-10-17)
+
+- Added first 15 free Proof Pages to hero, service note, inquiry guidance and FAQ. Hero CTA opens the existing Proof Page form with service preselected.
+- `FREE_PROOF_PAGE_LIMIT` in `config/site.config.ts` controls allocation (1–50); allocations are confirmed manually during review, not counted or reserved by form submission. Standard $499 price remains visible with the promotional waiver; other packages retain regular pricing.
+- Clarified paid-build milestones versus confirmed free builds and existing third-party cost exclusions. No checkout or database changes.
+- Config validator and targeted Node checks passed for 15, 50, rejection of 51, CTA routing, pricing and portfolio preservation. Full build/browser checks unavailable because the workspace proxy cannot connect; no visual pass claimed.
+- Published config as `0ce1e7535bfdb054cbb6dd70327aaf1b07df5f6b`. Next: confirm deployment and review homepage/Proof Page on production; manually track accepted spots and close or expand promotion when allocated.
+
+
 ## Kameron modeling and culture copy (2026-10-12)
 
 - Reframed the Dilla Den proof description around modeling, streetwear, editorial photography, runway motion, music and custom footwear, following the owner’s explicit copy preference.
